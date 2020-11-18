@@ -288,6 +288,7 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\StoreController.cs" />
     <Compile Include="Areas\Admin\Controllers\VoucherController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -296,6 +297,7 @@
     </Compile>
     <Compile Include="Models\AccountSocial.cs" />
     <Compile Include="Models\AuthenticationEmail.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Models\HasPermisionAttribute.cs" />
@@ -350,6 +352,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

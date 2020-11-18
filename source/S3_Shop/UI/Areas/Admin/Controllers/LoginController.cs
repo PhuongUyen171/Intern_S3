@@ -39,13 +39,18 @@ namespace UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Index(EmployeeModel emUpdate)
         {
-            HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateEmployee",emUpdate);
-            response.EnsureSuccessStatusCode();
-            bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
-            if (resultUpdate)
-                ViewBag.Result = "Thành công";
+            if (ModelState.IsValid)
+            {
+                HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateEmployee", emUpdate);
+                response.EnsureSuccessStatusCode();
+                bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
+                if (resultUpdate)
+                    ViewBag.Result = "Thành công";
+                else
+                    ViewBag.Result = "Thất bại";
+            }
             else
-                ViewBag.Result = "Thất bại";
+                ViewBag.Result = "Thiếu thông tin";
             return View();
         }
 
@@ -123,6 +128,7 @@ namespace UI.Areas.Admin.Controllers
                                 ckUser.Expires = DateTime.Now.AddHours(48);
                                 ckUser.Value = model.UserName;
                                 Response.Cookies.Add(ckUser);
+
                                 HttpCookie ckPass = new HttpCookie("password");
                                 ckPass.Expires = DateTime.Now.AddHours(48);
                                 ckPass.Value = model.Password;

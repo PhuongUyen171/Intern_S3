@@ -10,17 +10,124 @@
     <div class="row" style="min-height:500px;">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
-            <h2 style="color:#ffb0bd;text-align:center">ĐĂNG KÝ</h2>
-            <input type="text" placeholder="Tên đăng nhập ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <input type="text" placeholder="Họ tên ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <input type="text" placeholder="Điện thoại ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <input type="text" placeholder="Email ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <input type="text" placeholder="Địa chỉ ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <input type="password" placeholder="Mật khẩu ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <input type="password" placeholder="Xác nhận mật khẩu ..." style="width:100%;height:40px;border-radius:10px;margin-bottom:10px" /><br />
-            <button type="submit" class="btn" style="background-color:#ffb0bd;color:white;width:100%;height:50px;border-radius:10px;margin-bottom:10px">ĐĂNG KÝ</button><br />
+            @using (Html.BeginForm("Signin", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model=>model.ID)
+                <h2 style="color:#ffb0bd;text-align:center">ĐĂNG KÝ</h2>
+                @Html.TextBoxFor(model => model.UserName, new { @placeholder = "Tên đăng nhập ...", @class = "txt" })
+                @Html.TextBoxFor(model => model.Name, new { @placeholder = "Họ tên ...", @class = "txt" })
+                @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Điện thoại ...", @class = "txt" })
+                @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email ...", @class = "txt" })
+                <span class="input-group-addon bootstrap-touchspin-postfix btn btn-default" id="btnGetAuthCode">Lấy mã xác thực</span><br />
+                @Html.TextBoxFor(model => model.Address, new { @placeholder = "Địa chỉ ...", @class = "txt" })
+                @Html.PasswordFor(model => model.Password, new { @placeholder = "Mật khẩu ...", @class = "txt" })
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @placeholder = "Xác nhận mật khẩu ...", @class = "txt" })
+                <input name="AuthenticationCode" type="text" class="form-control" placeholder="Mã xác thực" data-val-required="Mời nhập mã xác thực">
+
+                <button type="submit" class="btn" style="background-color:#ffb0bd;color:white;width:100%;height:50px;border-radius:10px;margin-bottom:10px">ĐĂNG KÝ</button><br />
+                <div class="warning">
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            }
         </div>
         <div class="col-lg-3"></div>
     </div>
 </body>
+<style>
+    .txt {
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
 
+    .field-validation-error {
+        color: red
+    }
+
+    .validation-summary-errors {
+        color: red
+    }
+
+    .button-login {
+        background-color: #ffb0bd;
+        color: white;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        margin-top: 5px;
+    }
+
+    .form-login {
+        background-color: white;
+        height: 320px;
+        width: 500px;
+        text-align: center;
+        padding: 10px;
+        margin-top: 200px;
+    }
+
+    .warning {
+        text-align: left;
+    }
+
+        .warning ul {
+            list-style: none;
+            margin-left: -40px;
+        }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+
+<script>
+        $('#btnGetAuthCode').off('click').on('click', function () {
+            alert("Đang kiểm tra...")
+            var memberEmail = document.getElementById('Email').value;
+            if (memberEmail) {
+                $.ajax({
+                    url: '/User/GetAuthenticationInEmail',
+                    data: { Email: memberEmail },
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            alert("Mã xác thực đã được gửi vào email  " + memberEmail)
+                        }
+                        else {
+                            alert("Email " + memberEmail + " đã tồn tại")
+                        }
+                    }
+                });
+            }
+            else {
+                alert("Ban chua nhap email")
+            }
+        });
+        ////retype password
+        //$('#retypePassword').keyup(function () {
+        //    var re = $(this).val();
+        //    var pass = $('#password').val();
+        //    if (re != pass) {
+        //        $('#lblRePass').text("Mật khẩu xác nhận không khớp với mật khẩu");
+        //        $('#lblRePass').css("color", "red");
+        //    }
+        //    else {
+        //        $('#lblRePass').text("");
+        //    }
+        //});
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9TyMQ4y3OFtS9ho3C1wB7Lwh-10PtdVY&libraries=places&language=vi&region=VN"></script>
+<script>
+        var input = document.getElementById('DiaChi');
+        autocomplete = new google.maps.places.Autocomplete(input);
+</script>

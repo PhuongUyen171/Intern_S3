@@ -12355,7 +12355,8 @@ SELECT * FROM COUNTRY
 update employee
 set statu=1
 where employid=2
-
+delete customer
+where customid=7
 select * 
 SET DATEFORMAT DMY
 INSERT INTO NEWS(Title,Images, Descrip, PublishDate) VALUES('Moji Homeware','tin6.jpg',N'Tuần này Moji đã quay lại và mang tới cho các bạn bộ sưu tập đồ trang trí nhà cửa đây, đảm bảo siêu bắt mắt và xinh lung linh luôn ~

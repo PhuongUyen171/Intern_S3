@@ -1,11 +1,13 @@
 ﻿using API.Controllers;
 using API.Models;
+using Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using UI.Models;
 
 namespace UI.Controllers
 {
@@ -13,6 +15,12 @@ namespace UI.Controllers
     {
         public ActionResult Index()
         {
+            UserLogin model = CheckAccount();
+            if (model != null)
+            {
+                model.FullName = new UserController().GetCustomerByUsername(model.UserName).CustomName;
+                Session[Constants.USER_SESSION] = model;
+            }
             int num = 8;
             var url = "https://localhost:44379/";
             ServiceRepository serviceObj = new ServiceRepository();
@@ -80,6 +88,23 @@ namespace UI.Controllers
             return PartialView();
         }
         #endregion
+
+        public UserLogin CheckAccount()
+        {
+            UserLogin result = null;
+            string username = string.Empty;
+            string id = string.Empty;
+            string fullname = string.Empty;
+            if (Request.Cookies["usernameCustomer"] != null)
+                username = Request.Cookies["usernameCustomer"].Value;
+            if (Request.Cookies["idCustomer"] != null)
+                id = Request.Cookies["idCustomer"].Value;
+            if (Request.Cookies["nameCustomer"] != null)
+                fullname = Request.Cookies["nameCustomer"].Value;
+            if (!string.IsNullOrEmpty(username) & !string.IsNullOrEmpty(id) & !string.IsNullOrEmpty(fullname))
+                result = new UserLogin { UserID = int.Parse(id), UserName = username, FullName = fullname };
+            return result;
+        }
         //public ActionResult ChiNhanhHaNoi()
         //{
         //    var hn = data.CUAHANGs.Where(m => m.Vung == "HN");

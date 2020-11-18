@@ -19,7 +19,7 @@ namespace UI.Areas.Admin.Controllers
             serviceObj = new ServiceRepository();
             url = "https://localhost:44379/api/Category_API/";
         }
-        [HasPermision(RoleID = "1")]
+        [HasPermision(RoleID = 1)]
         public ActionResult Index()
         {
             try

@@ -11,18 +11,21 @@ namespace Model.Common
 {
     class HasPermisionAttribute:AuthorizeAttribute
     {
-        public string RoleID { set; get; }
+        public int RoleID { set; get; }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var session = (LoginModel)HttpContext.Current.Session[Common.Constants.USER_SESSION];
+            var session = (LoginModel)HttpContext.Current.Session[Constants.ADMIN_SESSION];
             if (session == null)
             {
                 return false;
             }
 
-            List<string> privilegeLevels = this.GetCredentialByLoggedInUser(session.UserName); // Call another method to get rights of the user from DB
-
-            if (privilegeLevels.Contains(this.RoleID) || session.GroupID == Constants.ADMIN_GROUP)
+            List<int> privilegeLevels = this.GetCredentialByLoggedInUser(session.UserName); // Call another method to get rights of the user from DB
+            if (privilegeLevels.Contains(this.RoleID) || session.GroupID == null)
+            {
+                return false;
+            }
+            else if (privilegeLevels.Contains(this.RoleID) || session.GroupID == Constants.ADMIN_GROUP)
             {
                 return true;
             }
@@ -38,9 +41,9 @@ namespace Model.Common
                 ViewName = "~/Areas/Admin/Views/Shared/401.cshtml"
             };
         }
-        private List<string> GetCredentialByLoggedInUser(string userName)
+        private List<int> GetCredentialByLoggedInUser(string userName)
         {
-            var credentials = (List<string>)HttpContext.Current.Session[Constants.SESSION_CREDENTIALS];
+            var credentials = (List<int>)HttpContext.Current.Session[Constants.SESSION_CREDENTIALS];
             return credentials;
         }
     }

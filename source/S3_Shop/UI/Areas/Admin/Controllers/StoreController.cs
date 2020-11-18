@@ -19,7 +19,7 @@ namespace UI.Areas.Admin.Controllers
             serviceObj = new ServiceRepository();
         }
         // GET: Admin/Role
-        [HasPermision(RoleID = "2")]
+        [HasPermision(RoleID = 2)]
         public ActionResult Index()
         {
             try

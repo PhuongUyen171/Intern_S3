@@ -35,6 +35,34 @@ namespace DAL.DAL
                 return false;
             }
         }
+        public long InsertForFacebook(CUSTOMER model)
+        {
+            var user = db.CUSTOMERs.SingleOrDefault(x => x.Username == model.Username);
+            if (user == null)
+            {
+                db.CUSTOMERs.Add(model);
+                db.SaveChanges();
+                return model.CustomID;
+            }
+            else
+            {
+                return user.CustomID;
+            }
+        }
+        public long InsertForGoogle(CUSTOMER model)
+        {
+            var user = db.CUSTOMERs.SingleOrDefault(x => x.Username == model.Username);
+            if (user == null)
+            {
+                db.CUSTOMERs.Add(model);
+                db.SaveChanges();
+                return model.CustomID;
+            }
+            else
+            {
+                return user.CustomID;
+            }
+        }
         public bool DeleteCustomer(int id)
         {
             try
@@ -67,6 +95,7 @@ namespace DAL.DAL
                     itemUpdate.MemID = custom.MemID;
                     itemUpdate.Statu = custom.Statu;
                     itemUpdate.TotalPrice = custom.TotalPrice;
+                    itemUpdate.Username = custom.Username;
                     db.SaveChanges();
                 }
                 return true;
@@ -77,6 +106,8 @@ namespace DAL.DAL
             }
         }
         #endregion
+
+        #region Get Information 
         public CUSTOMER GetCustomerByID(int id)
         {
             return db.CUSTOMERs.Where(t => t.CustomID == id).FirstOrDefault();
@@ -115,5 +146,6 @@ namespace DAL.DAL
         {
             return db.CUSTOMERs.FirstOrDefault(t => t.Email == mail);
         }
+        #endregion
     }
 }

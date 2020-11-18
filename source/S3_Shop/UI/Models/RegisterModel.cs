@@ -33,17 +33,12 @@ namespace UI.Models
         public string Address { set; get; }
 
         [Required(ErrorMessage = "Yêu cầu nhập email")]
+        [EmailAddress(ErrorMessage ="Vui lòng nhập email thực.")]
         [Display(Name = "Email")]
         public string Email { set; get; }
 
         [Display(Name = "Điện thoại")]
+        [Phone(ErrorMessage ="Vui lòng nhập số điện thoại thực.")]
         public string Phone { set; get; }
-
-        //[Display(Name = "Tỉnh/thành")]
-        //public string ProvinceID { set; get; }
-
-
-        //[Display(Name = "Quận/Quyện")]
-        //public string DistrictID { set; get; }
     }
 }

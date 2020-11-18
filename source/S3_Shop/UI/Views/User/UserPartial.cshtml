@@ -5,7 +5,6 @@
         UI.Models.UserLogin cus = Session["USER_SESSION"] as UI.Models.UserLogin;
         if (cus != null)
         {
-
             <ul>
                 <li><a href="@Url.Action("ProfileUser","User",new { usr = cus.UserName})">@cus.FullName</a></li>
                 @*<li>@Html.ActionLink(custom.FullName, "ProfileUser", "User", new { user = custom.UserName })</li>*@

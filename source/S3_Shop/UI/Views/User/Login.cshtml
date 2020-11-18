@@ -3,8 +3,12 @@
     ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
 }
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="../../Content/cssMain.css" rel="stylesheet" />
 <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="92543054677-o2h09g2o5d17fujhhhe3a65djgr508h7.apps.googleusercontent.com">
 @using (Html.BeginForm("Login", "User", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -17,8 +21,13 @@
             <button type="submit" class="btn btn-login">ĐĂNG NHẬP</button>
             <a href="@Url.Action("ForgotPassword","User")">Quên mật khẩu?</a>
             <p>Hoặc đăng nhập với tài khoản</p>
-            <button type="submit" class="btn btn-primary btn-classic">Đăng nhập bằng Facebook</button>
-            <button type="submit" class="btn btn-danger btn-classic">Đăng nhập bằng Google</button>
+            <button type="submit" class="btn btn-primary btn-classic">
+                <a class="btn" href="/User/LoginFacebook" style="text-decoration:none;color:white;">
+                    Đăng nhập bằng Facebook
+                </a>
+            </button>
+            <div class="g-signin2" style="display:none;" data-onsuccess="onSignIn"></div>
+            <button type="submit" class="btn btn-danger btn-classic" id="btnGoogle">Đăng nhập bằng Google</button>
             <div class="warning">
                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })<br />
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })<br />
@@ -35,6 +44,7 @@
         border-radius: 10px;
         margin-bottom: 10px;
     }
+
     .btn-login {
         background-color: #ffb0bd;
         color: white;
@@ -43,12 +53,14 @@
         border-radius: 10px;
         margin-bottom: 10px;
     }
+
     .btn-classic {
         width: 100%;
         height: 50px;
         border-radius: 10px;
         margin-bottom: 10px;
     }
+
     .warning {
         text-align: left;
     }
@@ -58,47 +70,42 @@
             margin-left: -40px;
         }
 </style>
-    @*<div class="content">
-            @using (Html.BeginForm("Login", "User", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    <h4>Đăng nhập</h4>
-                    <hr />
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2"></label>
-                        <div class="col-md-10">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Đăng nhập" class="btn btn-default" />
-                            <a class="btn btn-facebook" href="/User/LoginFacebook">
-                                <i class="fa fa-facebook"></i>
-                                Đăng nhập bằng Facebook
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>*@
+<script>
+    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+        var googleAC = [];
+        googleAC.push({
+            AccountId: profile.getId(),
+            FullName: profile.getName(),
+            Email: profile.getEmail(),
+            IdToken: googleUser.getAuthResponse().id_token
+        });
+        $('#btnGoogle').click(function () {
+            $.ajax({
+                url: '/User/LoginGoogle',
+                data: { googleACModel: JSON.stringify(googleAC) },
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+                    if (data.status == true) {
+                        alert('Login Success');
+                        window.location.href = "/";
+                    }
+                }
+            });
+        });
+        
+    }
+</script>
 

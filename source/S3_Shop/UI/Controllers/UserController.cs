@@ -42,7 +42,14 @@ namespace UI.Controllers
         #region chức năng đăng nhập user
         public ActionResult Login()
         {
-            return View();
+            UserLogin model = CheckAccount();
+            if (model == null)
+                return View();
+            else
+            {
+                Session[Constants.USER_SESSION] = model;
+                return RedirectToAction("ProfileUser", "User", new { usr = model.UserName });
+            }
         }
         [HttpPost]
         [AllowAnonymous]
@@ -62,31 +69,31 @@ namespace UI.Controllers
                             responseUser.EnsureSuccessStatusCode();
                             CustomerModel customLogin = responseUser.Content.ReadAsAsync<CustomerModel>().Result;
 
-                            var userSession = new UserLogin();
-                            userSession.UserName = customLogin.Username;
-                            userSession.Password = customLogin.Pass;
-                            userSession.FullName = customLogin.CustomName;
-                            userSession.UserID = customLogin.CustomID;
-
                             UserLogin u = new UserLogin {
                                 UserID = customLogin.CustomID,
                                 UserName=customLogin.Username,
                                 FullName=customLogin.CustomName,
-                                Password=""
+                                Password=customLogin.Pass
                             };
                             Session.Add(Constants.USER_SESSION, u);
                             //if (model.RememberMe)
                             //{
                             HttpCookie ckUserAccount = new HttpCookie("usernameCustomer");
                             ckUserAccount.Expires = DateTime.Now.AddHours(48);
-                            ckUserAccount.Value = userSession.UserName;
+                            ckUserAccount.Value = u.UserName;
                             Response.Cookies.Add(ckUserAccount);
+
                             HttpCookie ckIDAccount = new HttpCookie("idCustomer");
                             ckIDAccount.Expires = DateTime.Now.AddHours(48);
-                            ckIDAccount.Value = userSession.UserID + "";
+                            ckIDAccount.Value = u.UserID + "";
                             Response.Cookies.Add(ckIDAccount);
+
+                            HttpCookie ckNameAccount = new HttpCookie("nameCustomer");
+                            ckNameAccount.Expires = DateTime.Now.AddHours(48);
+                            ckNameAccount.Value = u.FullName;
+                            Response.Cookies.Add(ckNameAccount);
                             //}
-                            return RedirectToAction("ProfileUser", "User", new { user = customLogin.Username });
+                            return RedirectToAction("ProfileUser", "User", new { usr = customLogin.Username });
                         }
                     case 0:
                         ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không tồn tại.");
@@ -114,6 +121,12 @@ namespace UI.Controllers
                     HttpCookie ckIDAccount = new HttpCookie("idCustomer");
                     ckIDAccount.Expires = DateTime.Now.AddHours(-48);
                     Response.Cookies.Add(ckIDAccount);
+                }
+                if (Response.Cookies["nameCustomer"] != null)
+                {
+                    HttpCookie cknameAccount = new HttpCookie("nameCustomer");
+                    cknameAccount.Expires = DateTime.Now.AddHours(-48);
+                    Response.Cookies.Add(cknameAccount);
                 }
                 Constants.COUNT_LOGIN_FAIL_USER = 0;
                 return RedirectToAction("Index", "Home");
@@ -234,9 +247,62 @@ namespace UI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Signin(RegisterModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Signin([Bind(Include = "UserName,Email,Address,Password,ConfirmPassword,Name,Phone")] RegisterModel model, string AuthenticationCode)
         {
-            return this.View();
+            var authenticationEmail = (AuthenticationEmail)Session[Constants.AUTHENTICATIONEMAIL_SESSION];
+            if (ModelState.IsValid & authenticationEmail != null)
+            {
+                if (model.Email == authenticationEmail.Email & authenticationEmail.AuthenticationCode == AuthenticationCode)
+                {
+                    //check email đã đc dùng
+                    var mail = GetCustomerByEmail(model.Email);
+                    if (mail != null)
+                    {
+                        ModelState.AddModelError("","Email này đã được sử dụng.");
+                        return View(model);
+                    }
+
+                    CustomerModel c = new CustomerModel
+                    {
+                        Username = model.UserName,
+                        CustomName = model.Name,
+                        Pass = model.Password,
+                        Phone = model.Phone,
+                        Location = model.Address,
+                        Email = model.Email
+                    };
+
+                    HttpResponseMessage response = serviceObj.PostResponse(url + "InsertCustomer/", c);
+                    response.EnsureSuccessStatusCode();
+                    //return RedirectToAction("Index");
+
+                    //admin.MatKhauMaHoa = Encryptor.SHA256Encrypt(admin.MatKhauMaHoa);
+                    //admin.TrangThai = true;
+                    //db.Admins.Add(admin);
+                    //db.SaveChanges();
+
+                    UserLogin u = new UserLogin
+                    {
+                        FullName = c.CustomName,
+                        Password = c.Pass,
+                        UserName = c.Username
+                    };
+                    //var userSession = new UserLogin();
+                    //userSession.UserName = model.Name;
+                    //userSession.Email = model.UserName;
+                    Session[Constants.USER_SESSION] = null;
+                    Session[Constants.USER_SESSION] = u;
+
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Mã xác thực không hợp lệ");
+                    return View(model);
+                }
+            }
+            return View(model);
         }
         #endregion
 
@@ -283,7 +349,6 @@ namespace UI.Controllers
                 user.Email = email;
                 user.Username = email;
                 user.Statu = true;
-
                 user.CustomName = firstname + " " + middlename + " " + lastname;
                 //user.CreatedDate = DateTime.Now;
 
@@ -291,10 +356,12 @@ namespace UI.Controllers
                 var resultInsert = InsertByFacebook(user);
                 if (resultInsert > 0)
                 {
-                    var userSession = new UserLogin();
-                    userSession.UserName = email;
-                    userSession.UserID = resultInsert;
-                    Session.Add(Constants.USER_SESSION, userSession);
+                    UserLogin u = new UserLogin {
+                        UserName=email,
+                        UserID=resultInsert,
+                        FullName=user.CustomName
+                    };
+                    Session.Add(Constants.USER_SESSION, u);
 
                     //if (model.RememberMe)
                     //{
@@ -302,10 +369,16 @@ namespace UI.Controllers
                     ckUserAccount.Expires = DateTime.Now.AddHours(48);
                     ckUserAccount.Value = email;
                     Response.Cookies.Add(ckUserAccount);
+
                     HttpCookie ckIDAccount = new HttpCookie("idCustomer");
                     ckIDAccount.Expires = DateTime.Now.AddHours(48);
                     ckIDAccount.Value = resultInsert.ToString();
                     Response.Cookies.Add(ckIDAccount);
+
+                    HttpCookie ckNameAccount = new HttpCookie("nameCustomer");
+                    ckNameAccount.Expires = DateTime.Now.AddHours(48);
+                    ckNameAccount.Value = u.FullName;
+                    Response.Cookies.Add(ckNameAccount);
                 }
             }
             return Redirect("/");
@@ -337,24 +410,18 @@ namespace UI.Controllers
             ckUserAccount.Expires = DateTime.Now.AddHours(48);
             ckUserAccount.Value = u.UserName;
             Response.Cookies.Add(ckUserAccount);
+
             HttpCookie ckIDAccount = new HttpCookie("idCustomer");
             ckIDAccount.Expires = DateTime.Now.AddHours(48);
             ckIDAccount.Value = u.UserID + "";
             Response.Cookies.Add(ckIDAccount);
 
+            HttpCookie ckNameAccount = new HttpCookie("nameCustomer");
+            ckNameAccount.Expires = DateTime.Now.AddHours(48);
+            ckNameAccount.Value = u.FullName;
+            Response.Cookies.Add(ckNameAccount);
+
             return Json(new { status = true });
-        }
-        #endregion
-        [HttpGet]
-        public ActionResult ProfileUser(string usr)
-        {
-            CustomerModel cus = GetCustomerByUsername(usr);
-            return View(cus);
-        }
-        [HttpPost]
-        public ActionResult ProfileUser(CustomerModel model)
-        {
-            return View();
         }
         public int InsertByFacebook(CustomerModel customer)
         {
@@ -369,6 +436,30 @@ namespace UI.Controllers
             response.EnsureSuccessStatusCode();
             int resultInsert = response.Content.ReadAsAsync<int>().Result;
             return resultInsert;
+        }
+        #endregion
+        [HttpGet]
+        public ActionResult ProfileUser(string usr)
+        {
+            CustomerModel cus = GetCustomerByUsername(usr);
+            return View(cus);
+        }
+        [HttpPost]
+        public ActionResult ProfileUser(CustomerModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateCustomer", model);
+                response.EnsureSuccessStatusCode();
+                bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
+                if (resultUpdate)
+                    ViewBag.Result = "Cập nhật thông tin thành công.";
+                else
+                    ViewBag.Result = "Có lỗi xảy ra trong quá trình cập nhật.";
+            }
+            else
+                ModelState.AddModelError("","Thiếu thông tin.");
+            return View(model);
         }
         public CustomerModel GetCustomerByUsername(string user)
         {
@@ -389,7 +480,7 @@ namespace UI.Controllers
                 authenticationEmail.AuthenticationCode = authCode.ToString();
                 Session[Constants.AUTHENTICATIONEMAIL_SESSION] = authenticationEmail;
 
-                MailHelper.SendMailAuthentication(Email, "Mã xác thực từ Knowledge Store", authCode.ToString());
+                MailHelper.SendMailAuthentication(Email, "Mã xác thực từ Moji Store", authCode.ToString());
 
                 return Json(new { status = true });
             }
@@ -399,6 +490,22 @@ namespace UI.Controllers
         public ActionResult UserPartial()
         {
             return PartialView();
+        }
+        public UserLogin CheckAccount()
+        {
+            UserLogin result = null;
+            string username = string.Empty;
+            string id = string.Empty;
+            string fullname = string.Empty;
+            if (Request.Cookies["usernameCustomer"] != null)
+                username = Request.Cookies["usernameCustomer"].Value;
+            if (Request.Cookies["idCustomer"] != null)
+                id = Request.Cookies["idCustomer"].Value;
+            if (Request.Cookies["nameCustomer"] != null)
+                fullname = Request.Cookies["nameCustomer"].Value;
+            if (!string.IsNullOrEmpty(username) & !string.IsNullOrEmpty(id) &!string.IsNullOrEmpty(fullname))
+                result = new UserLogin { UserID = int.Parse(id), UserName = username,FullName=fullname };
+            return result;
         }
     }
 }
