@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/cssMain.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/c37e58ae3b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="header">
+        <ul>
+            <li><a href="@Url.Action("TuyenDung","Home")">TUYỂN DỤNG</a></li>
+            <li><a href="@Url.Action("GioiThieu","Home")">VỀ MOJI</a></li>
+            <li><a href="@Url.Action("HeThong","Home")">HỆ THỐNG CỬA HÀNG</a></li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div class="row header2">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2">
+                <a href="@Url.Action("Index","Home")">
+                    <img src="../../Content/Image/store_1580801513_542.png" align="center" height="50px" width="80px"  style="margin-top:10px" />
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <form style="padding-top:35px">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm" name="tim" width="100%" />
+                    <button type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-lg-2" style="padding-top:35px">
+                @Html.ActionLink("Đăng Nhập", "Login", "User")|@Html.ActionLink("Đăng Ký", "Signin", "User")|<i class="fas fa-cart-arrow-down" style="font-size:20px"></i>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+    @Html.Action("CategoryPartial", "Home")
+    <div class="row" style="min-height:500px">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">@RenderBody()</div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="footer">
+        <div class="row" style="padding-top:10px">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2">
+                <ul>
+                    <li>Hotline: 0917.3200.31</li>
+                    <li>Email: uyen@gmail.com</li>
+                    <li><a href="../Home/ChinhSachBanHang">Chính sách mua hàng</a></li>
+                    <li><a href="../Home/HuongDanMuaHang">Hướng dẫn mua hàng</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <ul>
+                    Chi nhánh TP.HCM
+                    <li>17 Lê Trọng Tấn</li>
+                    <li>22 Lê Thúc Hoạch</li>
+                    <li>37 Lê Lợi</li>
+                    <li>43 Lê Thị Dần</li>
+                    <li>51 Lê Thị Riêng</li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <ul>
+                    Chi nhánh Hà Nội
+                    <li>61 Nguyễn Thị Thập</li>
+                    <li>73 Nguyễn Huệ</li>
+                    <li>87 Nguyễn Văn Quá</li>
+                    <li>97 Nguyễn Thị Minh Khai</li>
+                    <li>101 Nguyễn Trãi</li>
+                    <li>123 Nguyễn Ái Quốc</li>
+                </ul>
+            </div>
+            <div class="col-lg-2">
+                <a href="~/Admin/Login/Login">
+                    <img src="../../Content/Image/store_1580801513_542.png" width="100%" />
+                </a>
+                <p>Hãy kết nối với chúng mình.</p>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+    <div class="footerEnd">
+        Copyright 2020. Made by Uyên PU
+    </div>
+</body>
+</html>
+@*<style>
+    body{
+        
+    }
+</style>*@

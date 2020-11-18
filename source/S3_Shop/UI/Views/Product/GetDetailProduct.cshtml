@@ -1,0 +1,143 @@
+﻿@*@model Model.ProductModel*@
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
+}
+<link href="../../Content/css/cssMain.css" rel="stylesheet" type="text/css" />
+<link href="../../Content/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+    <div class="row" style="margin-top:20px">
+        <div class="col-lg-6"><img src="../../Content/Image/@Model.Images" width="100%" /></div>
+        <div class="col-lg-6">
+            <h2>@Model.ProductName</h2>
+            <p>Mã sản phẩm: @Model.ProductID</p>
+            <h2>@string.Format("{0:0,0}", Model.Price) VNĐ</h2>
+            <p>Số lượng: @Html.TextBox("1")</p>
+            <button type="submit" style="color:white;width:200px;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd" class="btn" align="center">THÊM VÀO GIỎ HÀNG</button>
+            <button type="submit" style="color:white;width:200px;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd" class="btn" align="center">MUA NGAY</button>
+            <br /><hr />
+            <div class="row" style="font-size:16px">
+                <div class="col-lg-1"><i class="fas fa-truck" style="font-size:25px"></i></div>
+                <div class="col-lg-3"><p>Giao hàng toàn quốc đơn hàng từ 100k</p></div>
+                <div class="col-lg-1"><i class="fab fa-bitcoin" style="font-size:25px"></i></div>
+                <div class="col-lg-3"><p>Ship COD nội thành Hà Nội, TP.HCM</p></div>
+                <div class="col-lg-1"><i class="fas fa-exchange-alt" style="font-size:25px"></i></div>
+                <div class="col-lg-3"><p>Đổi trả trong 24h</p></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1"><i class="fas fa-truck" style="font-size:25px"></i></div>
+                <div class="col-lg-11"><p>Hỗ trợ ship 20k đối với đơn hàng từ 300k nội thành HN, HCM<br />Hỗ trợ ship 30k đối với đơn hàng từ 500k toàn quốc</p></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <h3 style="background-color:#ffb0bd;color:white;height:50px;width:100%;margin-bottom:20px;margin-top:20px;padding-top:5px">ĐÁNH GIÁ</h3>
+    <div class="row">
+        <div class="col-lg-2">
+            <img src="../../Content/Image/bi1.jpg" style="border-radius:100%" height="100px" width="100px" />
+            <h3 style="font-size:16px;font-weight:700">Phương Uyên</h3>
+        </div>
+        <div class="col-lg-10">
+            <h1 style="font-size:16px;color:red">Phù hợp với làn da mền rách của chế</h1>
+            <p>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+            </p>
+            <p>Đánh giá: 4/5<br />Chế thích lắm. Vì phù hợp với làn da chế. Làn da chế như một cái mền rách. Chế cảm thấy vui vì làn da mền rách của chế thích. Mặc dù mền rách nhưng vẫn rất thích sản phẩm</p>
+        </div>
+    </div><br />
+    <div class="row">
+        <div class="col-lg-2">
+            <img src="../../Content/Image/bi1.jpg" style="border-radius:100%" height="100px" width="100px" />
+            <h3 style="font-size:16px;font-weight:700">Phương Uyên</h3>
+        </div>
+        <div class="col-lg-10">
+            <h1 style="font-size:16px;color:red">Phù hợp với làn da mền rách của chế</h1>
+            <p>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+            </p>
+            <p>Đánh giá: 4/5<br />Chế thích lắm. Vì phù hợp với làn da chế. Làn da chế như một cái mền rách. Chế cảm thấy vui vì làn da mền rách của chế thích. Mặc dù mền rách nhưng vẫn rất thích sản phẩm</p>
+        </div>
+    </div><br />
+    <div class="row">
+        <div class="col-lg-2">
+            <img src="../../Content/Image/bi1.jpg" style="border-radius:100%" height="100px" width="100px" />
+            <h3 style="font-size:16px;font-weight:700">Phương Uyên</h3>
+        </div>
+        <div class="col-lg-10">
+            <h1 style="font-size:16px;color:red">Phù hợp với làn da mền rách của chế</h1>
+            <p>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+            </p>
+            <p>Đánh giá: 4/5<br />Chế thích lắm. Vì phù hợp với làn da chế. Làn da chế như một cái mền rách. Chế cảm thấy vui vì làn da mền rách của chế thích. Mặc dù mền rách nhưng vẫn rất thích sản phẩm</p>
+        </div>
+    </div><br />
+    <div class="row">
+        <div class="col-lg-2">
+            <img src="../../Content/Image/bi1.jpg" style="border-radius:100%" height="100px" width="100px" />
+            <h3 style="font-size:16px;font-weight:700">Phương Uyên</h3>
+        </div>
+        <div class="col-lg-10">
+            <h1 style="font-size:16px;color:red">Phù hợp với làn da mền rách của chế</h1>
+            <p>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+            </p>
+            <p>Đánh giá: 4/5<br />Chế thích lắm. Vì phù hợp với làn da chế. Làn da chế như một cái mền rách. Chế cảm thấy vui vì làn da mền rách của chế thích. Mặc dù mền rách nhưng vẫn rất thích sản phẩm</p>
+        </div>
+    </div><br />
+
+
+
+
+
+    <h3 style="background-color:#ffb0bd;color:white;height:50px;width:100%;margin-bottom:20px;margin-top:20px;padding-top:5px">SẢN PHẨM CÙNG DANH MỤC</h3>
+    <div class="row">
+        <div class="col-lg-3">
+            <img src="../../Content/Image/bi1.jpg" width="100%" /><br />
+            <h3 class="tenSp">Bao túi quà So Cute</h3>
+            <h3 class="gia">45.000 VNĐ</h3>
+        </div>
+        <div class="col-lg-3">
+            <img src="../../Content/Image/bi1.jpg" width="100%" /><br />
+            <h3 class="tenSp">Bao túi quà So Cute</h3>
+            <h3 class="gia">45.000 VNĐ</h3>
+        </div>
+        <div class="col-lg-3">
+            <img src="../../Content/Image/bi1.jpg" width="100%" /><br />
+            <h3 class="tenSp">Bao túi quà So Cute</h3>
+            <h3 class="gia">45.000 VNĐ</h3>
+        </div>
+        <div class="col-lg-3">
+            <img src="../../Content/Image/bi1.jpg" width="100%" /><br />
+            <h3 class="tenSp">Bao túi quà So Cute</h3>
+            <h3 class="gia">45.000 VNĐ</h3>
+        </div>
+    </div>
+</div>
+<style>
+    h2{
+        font-weight:bold;
+        text-align:left;
+    }
+</style>
+

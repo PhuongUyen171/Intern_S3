@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Model.NewsModel>
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
+}
+<link href="~/Content/cssMain.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="heading" align="center">
+    Về MOJI
+    <ul>
+        <li><a href="GioiThieu">Giới thiệu</a></li>
+        <li><a href="TinTuc" class="active">Tin tức</a></li>
+        <li><a href="VanHoa">Văn hóa</a></li>
+        <li><a href="TuyenDung">Tuyển dụng</a></li>
+        <li><a href="ChinhSachBanHang">Chính sách bán hàng</a></li>
+        <li><a href="HuongDanMuaHang">Hướng dẫn mua hàng</a></li>
+    </ul>
+</div>
+@foreach (var item in Model)
+{
+<div class="row">
+    <div class="col-lg-4">
+        <img src="~/Content/Image/+@item.Images" />
+    </div>
+    <div class="col-lg-8">
+        <p>@item.Title<br />@item.Descrip</p>
+    </div>
+</div>
+}

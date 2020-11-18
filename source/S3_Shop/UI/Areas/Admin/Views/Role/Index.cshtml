@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Model.RoleModel>
+
+@{
+    ViewBag.Title = "Quản lý bảng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>QUẢN LÝ BẢNG</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoleID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoleName)
+    </td>
+    <td>
+        <button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.RoleID }, new { @style = "color:white;" }) </button>
+        <button class="btn btn-success">@Html.ActionLink("Details", "DetailRole", new { id = item.RoleID }, new { @style = "color:white;" })</button>
+        <button class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id = item.RoleID }, new { @style = "color:white;" })</button>
+    </td>
+</tr>
+}
+
+</table>

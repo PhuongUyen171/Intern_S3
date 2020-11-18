@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4cdfbe9e43744d1bbd055fe79719f3a5" Name="Diagram1">
+        <EntityTypeShape EntityType="QL_ShopModel.BILL" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.BILLINFO" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.CATEGORY" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.CUSTOMER" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.EMPLOYEE" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.GROUPADMIN" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.MEMBERSHIP" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.NEWS" Width="1.5" PointX="5.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.PERMISION" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.PRODUCT" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.ROLE" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.STORE" Width="1.5" PointX="7.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.VOUCHER" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.COUNTRY" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.DISTRICT" Width="1.5" PointX="9.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.PROVINCE" Width="1.5" PointX="5.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ShopModel.WARD" Width="1.5" PointX="7.75" PointY="12" IsExpanded="true" />
+        <AssociationConnector Association="QL_ShopModel.FK__BILL__CustomID__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__BILL__EmployID__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__BILL__VoucherID__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__BILLINFO__BillID__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__BILLINFO__Produc__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__PRODUCT__CateID__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__CUSTOMER__MemID__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__EMPLOYEE__GroupI__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__PERMISION__Group__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ShopModel.FK__PERMISION__RoleI__38996AB5" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

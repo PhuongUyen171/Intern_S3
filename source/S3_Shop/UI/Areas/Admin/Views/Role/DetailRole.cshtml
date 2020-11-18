@@ -1,0 +1,75 @@
+﻿@model Model.RoleModel
+
+@{
+    ViewBag.Title = "Chi tiết bảng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>CHI TIẾT BẢNG</h2>
+
+<div>
+    @*<h4>RegisterModel</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.ConfirmPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConfirmPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

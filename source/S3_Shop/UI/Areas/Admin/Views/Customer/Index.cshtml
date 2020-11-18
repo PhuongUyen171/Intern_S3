@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Model.CustomerModel>
+
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ KHÁCH HÀNG</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.CustomID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            <button class="btn btn-primary">@Html.ActionLink("Edit", "EditProduct", new { id = item.CustomID }, new { @style = "color:white;" }) </button>
+            <button class="btn btn-success">@Html.ActionLink("Details", "DetailProduct", new { id = item.CustomID }, new { @style = "color:white;" })</button>
+            <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteProduct", new { id = item.CustomID }, new { @style = "color:white;" })</button>
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Model.EmployeeModel>
+
+@{
+    ViewBag.Title = "Quản lý nhân viên";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ NHÂN VIÊN</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.EmployID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.EmployID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EmployName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        <button class="btn btn-primary">@Html.ActionLink("Edit", "EditProduct", new { id = item.EmployID }, new { @style = "color:white;" }) </button>
+        <button class="btn btn-success">@Html.ActionLink("Details", "DetailProduct", new { id = item.EmployID }, new { @style = "color:white;" })</button>
+        <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteProduct", new { id = item.EmployID }, new { @style = "color:white;" })</button>
+    </td>
+</tr>
+    }
+
+</table>

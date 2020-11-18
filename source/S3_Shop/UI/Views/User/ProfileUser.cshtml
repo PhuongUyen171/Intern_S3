@@ -1,0 +1,49 @@
+﻿@model Model.CustomerModel
+
+@{
+    ViewBag.Title = "Profile cá nhân";
+    Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="row" style="padding-top:50px;">
+    <div class="col-md-3 col-sm-12" style="border: 1px solid black;margin:10px;">
+        <img src="~/Content/Image/avatar.png" style="height:100px; width:100px;align-content:center;" />
+        <h2>@Model.CustomName</h2>
+        <ul style="list-style:none;">
+            <li>Thông tin tài khoản</li>
+            <li>Lịch sử đơn hàng</li>
+            <li>Đổi mật khẩu</li>
+            <li>Sản phẩm yêu thích</li>
+            <li>Đăng xuất</li>
+        </ul>
+    </div>
+    <div class="col-md-8 col-sm-12" style="border: 1px solid black;margin:10px;">
+        <h2 style="color:#ffb0bd;font-size:25px;margin-top:20px;padding-bottom:10px;border-bottom:1px solid #ffb0bd">HỒ SƠ CỦA TÔI</h2>
+        <p style="text-align:left">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+        <table>
+            <tr>Họ tên: </tr>
+            <tr>@Html.TextBoxFor(Model => Model.CustomName, new { @class = "txt" })</tr>
+            <tr>Email:</tr>
+            <tr>@Html.TextBoxFor(Model => Model.Email, new { @class = "txt" })</tr>
+            <tr>Địa chỉ:</tr>
+            <tr>@Html.TextBoxFor(Model => Model.Location, new { @class = "txt" })</tr>
+            <tr>Điện thoại:</tr>
+            <tr>@Html.TextBoxFor(Model => Model.Phone, new { @class = "txt" })</tr>
+        </table>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+<style>
+    h2 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .txt {
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        margin-top: 10px;
+        padding: 10px;
+    }
+</style>

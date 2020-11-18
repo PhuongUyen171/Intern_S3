@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "Moji - Quà tặng và phụ kiện";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<Model.ProductModel>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/cssMain.css" rel="stylesheet" />
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<style>
+    div.container {
+        border: 3px solid black;
+        cursor: pointer;
+        width: 900px;
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        transition: all ease-in-out;
+        opacity: 1;
+    }
+
+    .tinTuc {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .tinTuc .txt {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            position: absolute;
+            bottom: 50px;
+            text-align: center;
+            color: black;
+            padding: 10px;
+            box-sizing: border-box;
+            opacity: 0;
+            text-align: center;
+        }
+
+        .tinTuc:hover .txt {
+            opacity: 0.5;
+            transform: translateY(50px);
+            transition: ease-in-out 0.5s;
+        }
+
+        .tinTuc:hover img {
+            transform: scale(1.0);
+            transition: all ease-in-out 0.5s;
+            opacity: 0.5;
+        }
+</style>
+@*Banner giữa trang *@
+<body>
+
+
+    <h2 class="tieuDe">Sản phẩm</h2>@*Sản phẩm mới: load động*@
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 sanPham col-sm-6 col-md-4 col-xs-6">
+                <img src="../../Content/Image/@item.Images" width="100%" />
+                <div class="tenSp"><a class="tenSp" href="@Url.Action("GetDetailProduct", "Product", new { id =item.ProductID })">@item.ProductName</a></div>
+                <div class="gia" style="font-weight:bold">@string.Format("{0:0,0}", item.Price) VNĐ</div>
+            </div>
+        }
+    </div>
+    <div align="center"><button type="submit" style="color:white;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd;font-size:16px;" class="btn" align="center">XEM THÊM</button></div>
+
+    <h2 class="tieuDe">Chủ đề mới</h2>
+    <div class="row" style="margin-bottom:20px">
+        <div class="col-lg-3 col-sm-6"><img src="../../Content/Image/btnTuiQua.png" width="100%" style="padding:10px" /></div>
+        <div class="col-lg-3 col-sm-6"><img src="../../Content/Image/btnHoaSap.png" width="100%" style="padding:10px" /></div>
+        <div class="col-lg-3 col-sm-6"><img src="../../Content/Image/btnQuaTang.png" width="100%" style="padding:10px" /></div>
+        <div class="col-lg-3 col-sm-6"><img src="../../Content/Image/btnSacDep.png" width="100%" style="padding:10px" /></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 sanPham col-sm-6">
+            <img src="../../Content/Image/hoa1.jpg" width="100%" />
+            <div class="tenSp">Hoa sáp Forever Flower 3 bông kèm nơ</div>
+            <div class="gia">100.000đ</div>
+        </div>
+        <div class="col-lg-3 sanPham col-sm-6">
+            <img src="../../Content/Image/hoa2.jpg" width="100%" />
+            <div class="tenSp">Hoa sáp Forever Flower 3 bông kèm nơ</div>
+            <div class="gia">100.000đ</div>
+        </div>
+        <div class="col-lg-3 sanPham col-sm-6">
+            <img src="../../Content/Image/hoa3.jpg" width="100%" />
+            <div class="tenSp">Hoa sáp Forever Flower 3 bông kèm nơ</div>
+            <div class="gia">100.000đ</div>
+        </div>
+        <div class="col-lg-3 sanPham col-sm-6">
+            <img src="../../Content/Image/hoa4.jpg" width="100%" />
+            <div class="tenSp">Hoa sáp Forever Flower 3 bông kèm nơ</div>
+            <div class="gia">100.000đ</div>
+        </div>
+    </div>
+    <div align="center"><button type="submit" style="color:white;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd;font-size:16px;" class="btn" align="center">XEM THÊM</button></div>
+
+
+    <h2 class="tieuDe">Bộ sưu tập</h2>
+    <div class="row" style="margin-bottom:30px">
+        <div class="col-lg-4 col-sm-4 tinTuc">
+            <img src="../../Content/Image/tin1.jpg" width="100%" />
+            <div class="txt">
+                <h3>AMAZING CAPTION</h3>
+                <p>Whatever It Is - Always Awesome</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4 tinTuc">
+            <img src="../../Content/Image/tin2.jpg" width="100%" />
+            <div class="txt">
+                <h3>AMAZING CAPTION</h3>
+                <p>Whatever It Is - Always Awesome</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4 tinTuc">
+            <img src="../../Content/Image/tin3.jpg" width="100%" />
+            <div class="txt">
+                <h3>AMAZING CAPTION</h3>
+                <p>Whatever It Is - Always Awesome</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+

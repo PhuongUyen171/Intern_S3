@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Model.VoucherModel>
+
+@{
+    ViewBag.Title = "Quản lý khuyến mãi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ KHUYẾN MÃI</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VoucherID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sale)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoucherID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sale) %
+            </td>
+            <td>
+                @string.Format("{0:dd/mm/yyyy}", Html.DisplayFor(modelItem => item.EndDate))
+            </td>
+            <td>
+                <button class="btn btn-primary">@Html.ActionLink("Edit", "EditProduct", new { id = item.VoucherID }, new { @style = "color:white;" }) </button>
+                <button class="btn btn-success">@Html.ActionLink("Details", "DetailProduct", new { id = item.VoucherID }, new { @style = "color:white;" })</button>
+                <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteProduct", new { id = item.VoucherID }, new { @style = "color:white;" })</button>
+            </td>
+        </tr>
+    }
+
+</table>

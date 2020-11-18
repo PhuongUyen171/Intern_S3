@@ -1,0 +1,75 @@
+﻿@model Model.StoreModel
+
+@{
+    ViewBag.Title = "Chi tiết cửa hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>CHI TIẾT CỬA HÀNG</h2>
+
+<div>
+    <h4>RegisterModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StoreID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StoreID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Images)
+        </dt>
+
+        <dd>
+           <img src="~/Content/Image/@Html.DisplayFor(model => model.Images)" height="200px"/>
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StoreID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

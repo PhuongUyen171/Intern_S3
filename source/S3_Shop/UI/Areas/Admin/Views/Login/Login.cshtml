@@ -1,0 +1,83 @@
+﻿
+@model UI.Models.LoginModel
+@{
+    ViewBag.Title = "Đăng nhập admin";
+    Layout = null;
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body style="background-color: #ffb0bd;">
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+
+            <div class="col-lg-4 col-md-1 col-sm-1"></div>
+            <div class="col-lg-4 col-md-10 col-sm-10">
+                <div class="form-login">
+                    <h1 style="font-size:25px; font-weight:bold; text-align:center;">ĐĂNG NHẬP ADMIN</h1>
+                    @Html.TextBoxFor(model => model.UserName, new { @placeholder = "Tên đăng nhập ...", @class = "txt" })
+                    @Html.PasswordFor(model => model.Password, new { @placeholder = "Mật khẩu ...", @class = "txt" })
+                    @Html.CheckBoxFor(model => model.RememberMe, new { @style = "text-align:left;display:inline-block;", @class = "pull-left" })<p style="text-align:left">Remember me</p> 
+                    <button type="submit" class="btn button-login">ĐĂNG NHẬP</button>
+
+                    <div class="warning">
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })<br />
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })<br />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "list-style-type:none;" })
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-1 col-sm-1"></div>
+        </div>
+            
+        }
+</body>
+</html>
+<style>
+    .txt {
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .field-validation-error {
+        color: red
+    }
+
+    .validation-summary-errors {
+        color: red
+    }
+    .button-login {
+        background-color: #ffb0bd;
+        color: white;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        margin-top:5px;
+    }
+    .form-login {
+        background-color: white;
+        height: 320px;
+        width: 500px;
+        text-align: center;
+        padding: 10px;
+        margin-top: 200px;
+    }
+    .warning{
+        text-align:left;
+        
+    }
+        .warning ul {
+            list-style: none;
+            margin-left:-40px;
+        }
+</style>
+

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Model.CategoryModel>
+<link href="../../Content/cssMain.css" rel="stylesheet" />
+<div class="header">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("GetProductsByCateID", "Product", new {id=item.CateID })">
+                    @item.CateName
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+

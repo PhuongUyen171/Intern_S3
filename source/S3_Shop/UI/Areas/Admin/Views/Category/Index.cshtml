@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Model.CategoryModel>
+@{
+    ViewBag.Title = "Quản lý loại hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>QUẢN LÝ LOẠI HÀNG</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.CateID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Images)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CateID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CateName)
+            </td>
+            <td>
+                <img src="~/Content/Image/@item.Images" height="50px"/>
+            </td>
+            <td>
+                <button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.CateID }, new { @style = "color:white;" }) </button>
+                <button class="btn btn-success">@Html.ActionLink("Details", "Details", new { id = item.CateID }, new { @style = "color:white;" })</button>
+                <button class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id = item.CateID }, new { @style = "color:white;" })</button>
+            </td>
+        </tr>
+    }
+
+</table>

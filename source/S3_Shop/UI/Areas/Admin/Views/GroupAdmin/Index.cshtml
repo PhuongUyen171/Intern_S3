@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Model.GroupAdminModel>
+
+@{
+    ViewBag.Title = "Quản lý nhóm admin";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ NHÓM ADMIN</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.GroupID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupName)
+        </td>
+        <td>
+            <button class="btn btn-primary">@Html.ActionLink("Edit", "EditGroupAdmin", new { id = item.GroupID }, new { @style = "color:white;" }) </button>
+            <button class="btn btn-success">@Html.ActionLink("Details", "DetailGroupAdmin", new { id = item.GroupID }, new { @style = "color:white;" })</button>
+            <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteGroupAdmin", new { id = item.GroupID }, new { @style = "color:white;" })</button>
+        </td>
+    </tr>
+}
+</table>

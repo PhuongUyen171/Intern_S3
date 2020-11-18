@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{21D27150-1C79-4CF9-BE89-CDC68688D5B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Model">
+      <HintPath>..\Model\bin\Debug\Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Encrypt.cs" />
+    <Compile Include="DAL\BillDAL.cs" />
+    <Compile Include="DAL\BillInfoDAL.cs" />
+    <Compile Include="DAL\CategoryDAL.cs" />
+    <Compile Include="DAL\CustomerDAL.cs" />
+    <Compile Include="DAL\EmployeeDAL.cs" />
+    <Compile Include="DAL\GroupAdminDAL.cs" />
+    <Compile Include="DAL\MembershipDAL.cs" />
+    <Compile Include="DAL\NewsDAL.cs" />
+    <Compile Include="DAL\PermisionDAL.cs" />
+    <Compile Include="DAL\ProductDAL.cs" />
+    <Compile Include="DAL\RoleDAL.cs" />
+    <Compile Include="DAL\StoreDAL.cs" />
+    <Compile Include="DAL\VoucherDAL.cs" />
+    <Compile Include="EF\BILL.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\BILLINFO.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CATEGORY.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\COUNTRY.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CUSTOMER.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DISTRICT.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\EMPLOYEE.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\GROUPADMIN.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\MEMBERSHIP.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\NEWS.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\PERMISION.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\PRODUCT.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\PROVINCE.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ROLE.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\S3ShopModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>S3ShopModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\S3ShopModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\S3ShopModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>S3ShopModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\STORE.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\VOUCHER.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\WARD.cs">
+      <DependentUpon>S3ShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="EF\S3ShopModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>S3ShopModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EF\S3ShopModel.edmx.diagram">
+      <DependentUpon>S3ShopModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EF\S3ShopModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>S3ShopModel.edmx</DependentUpon>
+      <LastGenOutput>S3ShopModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EF\S3ShopModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>S3ShopModel.edmx</DependentUpon>
+      <LastGenOutput>S3ShopModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

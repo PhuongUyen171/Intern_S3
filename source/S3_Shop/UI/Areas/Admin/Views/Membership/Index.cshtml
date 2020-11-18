@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Model.MembershipModel>
+
+@{
+    ViewBag.Title = "Quản lý thẻ khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>QUẢN LÝ THẺ KHÁCH HÀNG</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="background-color:darkgrey;">
+        <th>
+            @Html.DisplayNameFor(model => model.MemID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sale)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemName)
+        </td>
+        <td>
+            @*@string.Format("{0:0,0}", Html.DisplayFor(modelItem => item.MinPrice)) VNĐ*@
+            @String.Format("{0:0,0}", item.MinPrice) VNĐ
+        </td>
+        <td>
+            @String.Format("{0:0,0}", item.MaxPrice) VNĐ
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sale) %
+        </td>
+        <td>
+            <button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.MemID }, new { @style = "color:white;" }) </button>
+            <button class="btn btn-success">@Html.ActionLink("Details", "Details", new { id = item.MemID }, new { @style = "color:white;" })</button>
+            <button class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id = item.MemID }, new { @style = "color:white;" })</button>
+        </td>
+    </tr>
+}
+
+</table>

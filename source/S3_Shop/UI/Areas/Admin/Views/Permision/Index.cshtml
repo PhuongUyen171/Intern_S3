@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Model.PermisionModel>
+
+@{
+    ViewBag.Title = "Quản lý phân quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ PHÂN QUYỀN</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PerID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PerID)
+        </td>
+        <td>
+            <button class="btn btn-primary">@Html.ActionLink("Edit", "EditPermision", new { roleID = item.RoleID, groupID=item.GroupID}, new { @style = "color:white;" }) </button>
+            <button class="btn btn-success">@Html.ActionLink("Details", "DetailPermision", new { id = item.RoleID, groupID=item.GroupID }, new { @style = "color:white;" })</button>
+            <button class="btn btn-danger">@Html.ActionLink("Delete", "DeletePermision", new { id = item.RoleID, groupID=item.GroupID }, new { @style = "color:white;" })</button>
+        </td>
+    </tr>
+}
+
+</table>

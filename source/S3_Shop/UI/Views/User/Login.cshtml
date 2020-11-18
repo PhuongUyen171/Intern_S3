@@ -1,0 +1,104 @@
+﻿@model UI.Models.UserLogin
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
+}
+<link href="../../Content/cssMain.css" rel="stylesheet" />
+<link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row" style="min-height:500px;">
+        <div class="col-lg-3 col-sm-2 col-md-1 col-xs-1"></div>
+        <div class="col-lg-6 col-sm-8 col-md-10 col-xs-10">
+            <h2 style="color:#ffb0bd;text-align:center">ĐĂNG NHẬP</h2>
+            @Html.TextBoxFor(model => model.UserName, new { @placeholder = "Tên đăng nhập ...", @class = "txt" })
+            @Html.PasswordFor(model => model.Password, new { @placeholder = "Mật khẩu ...", @class = "txt" })
+            <button type="submit" class="btn btn-login">ĐĂNG NHẬP</button>
+            <a href="@Url.Action("ForgotPassword","User")">Quên mật khẩu?</a>
+            <p>Hoặc đăng nhập với tài khoản</p>
+            <button type="submit" class="btn btn-primary btn-classic">Đăng nhập bằng Facebook</button>
+            <button type="submit" class="btn btn-danger btn-classic">Đăng nhập bằng Google</button>
+            <div class="warning">
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })<br />
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })<br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "list-style-type:none;" })
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-2 col-md-1 col-xs-1"></div>
+    </div>
+}
+<style>
+    .txt {
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .btn-login {
+        background-color: #ffb0bd;
+        color: white;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .btn-classic {
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .warning {
+        text-align: left;
+    }
+
+        .warning ul {
+            list-style: none;
+            margin-left: -40px;
+        }
+</style>
+    @*<div class="content">
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <h4>Đăng nhập</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Đăng nhập" class="btn btn-default" />
+                            <a class="btn btn-facebook" href="/User/LoginFacebook">
+                                <i class="fa fa-facebook"></i>
+                                Đăng nhập bằng Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>*@
+

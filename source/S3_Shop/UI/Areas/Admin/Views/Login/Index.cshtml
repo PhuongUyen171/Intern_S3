@@ -1,0 +1,50 @@
+﻿@model Model.EmployeeModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1>PROFILE</h1>
+<link href="C:\Users\uyen.nguyen\Desktop\TrainingProject\source\S3_Shop\API\Content\bootstrap.min.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-lg-4">
+        <img src="~/Content/Image/cat.jpg" width="100%" style="margin:15px;" />
+    </div>
+    <div class="col-lg-8">
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        {
+        <table>
+            <tr style="font-weight:bold">Username:</tr>
+            <tr>@Html.TextBoxFor(Model => Model.EmployName, new { @style = "width:100%;height:40px;margin-bottom:20px;" })</tr>
+            <tr style="font-weight:bold">First name:</tr>
+            <tr>@Html.TextBoxFor(Model => Model.FirstName, new { @style = "width:100%;height:40px;margin-bottom:20px;" })</tr>
+            <tr style="font-weight:bold">Last name:</tr>
+            <tr>@Html.TextBoxFor(Model => Model.LastName, new { @style = "width:100%;height:40px;margin-bottom:20px;" })</tr>
+            <tr style="font-weight:bold">Status: </tr>
+            <tr>Đang hoạt động</tr>
+            <br />
+            @Html.HiddenFor(Model=>Model.EmployID)
+            @Html.HiddenFor(Model=>Model.GroupID)
+            @Html.HiddenFor(Model=>Model.Pass)
+            <tr><button type="submit" class="btn btn-pink">Update your profile</button></tr>
+        </table><br />
+        <font style="color:#7c1b1b">@ViewBag.Result</font>
+        }
+    </div>
+</div>
+<style>
+    tr {
+        display: inline-block;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .btn-pink {
+        color: white;
+        background-color: #ffb0bd;
+        border-color: #ffb0bd;
+        border-radius: 10px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+    }
+</style>

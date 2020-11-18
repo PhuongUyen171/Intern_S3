@@ -1,0 +1,132 @@
+﻿@{ 
+    var ad = Session["ADMIN_SESSION"] as UI.Models.LoginModel;
+}
+<html> 
+<header class="header clearfix">
+    <button type="button" id="toggleMenu" class="toggle_menu">
+        <i class="fa fa-bars"></i>
+    </button>
+    <h1>
+        <a src="@Url.Action("Index","Login","")"><img src="~/Content/Image/store_1580801513_542.png" alt="" width="80" height="40" align="left" style="margin-top:5px"></a>
+    </h1>
+    <h2>
+    <img src="~/Content/Image/cat.jpg" width="50px" style="border-radius:25px;" />
+    @ad.UserName
+    </h2>
+    <script src="https://kit.fontawesome.com/c37e58ae3b.js" crossorigin="anonymous"></script>
+</header>
+<body>
+    <nav class="vertical_nav" style="font-size:16px;">
+        <ul id="js-menu" class="menu">
+            <li class="menu--item">
+                <a href="@Url.Action("Index", "Membership")" class="menu--link" title="Quản lý loại thẻ">
+                    <i class="menu--icon  fas fa-fw fa-address-card"></i><span class="menu--label">Quản lý loại thẻ</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index", "GroupAdmin")" class="menu--link" title="Quản lý nhóm admin">
+                    <i class="menu--icon  fas fa-fw fa-users"></i><span class="menu--label">Quản lý nhóm admin</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index", "Product")" class="menu--link" title="Quản lý sản phẩm">
+                    <i class="menu--icon  fas fa-fw fa-gift"></i><span class="menu--label">Quản lý sản phẩm</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index", "Role")" class="menu--link">
+                    <i class="menu--icon  fas fa-fw fa-table"></i><span class="menu--label">Quản lý bảng</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index", "Permision")" class="menu--link">
+                    <i class="menu--icon  fas fa-fw fa-user-times"></i><span class="menu--label">Quản lý phân quyền</span>
+                </a>
+            </li>
+            <li class="menu--item  menu--item__has_sub_menu">
+                <label class="menu--link" title="Item 1">
+                    <i class="menu--icon  fa fa-fw fa-user"></i><span class="menu--label">Quản lý thành viên</span>
+                </label>
+                <ul class="sub_menu">
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link sub_menu--link__active">Danh mục 1</a>
+                    </li>
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link">Danh mục 2</a>
+                    </li>
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link">Danh mục 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu--item">
+                <a href="#" class="menu--link" title="Quản lý tin tức">
+                    <i class="menu--icon  fa fa-fw fa-briefcase"></i><span class="menu--label">Quản lý tin tức</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index","Category")" class="menu--link" title="Quản lý loại hàng">
+                    <i class="menu--icon  fa fa-fw fa-window-maximize"></i><span class="menu--label">Quản lý loại hàng</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index","Store")" class="menu--link" title="Quản lý cửa hàng">
+                    <i class="menu--icon  fa fa-fw fa-map-marker"></i><span class="menu--label">Quản lý cửa hàng</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index","Voucher")" class="menu--link" title="Chương trình khuyến mãi">
+                    <i class="menu--icon  fa fa-fw fa-map-marker"></i><span class="menu--label">Chương trình khuyến mãi</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index","Customer")" class="menu--link" title="Quản lý khách hàng">
+                    <i class="menu--icon  fa fa-fw fa-user"></i><span class="menu--label">Quản lý khách hàng</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Index","Employee")" class="menu--link" title="Quản lý nhân viên">
+                    <i class="menu--icon  fa fa-fw fa-map-marker"></i><span class="menu--label">Quản lý nhân viên</span>
+                </a>
+            </li>
+            <li class="menu--item">
+                <a href="#" class="menu--link" title="Item 3">
+                    <i class="menu--icon  fa fa-fw fa-cog"></i><span class="menu--label">Quản lý đơn hàng</span>
+                </a>
+            </li>
+            <li class="menu--item  menu--item__has_sub_menu">
+                <label class="menu--link" title="Item 4">
+                    <i class="menu--icon  fa fa-fw fa-database"></i><span class="menu--label">Quản lý sản phẩm</span>
+                </label>
+                <ul class="sub_menu">
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link">Danh mục 1</a>
+                    </li>
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link">Danh mục 2</a>
+                    </li>
+                    <li class="sub_menu--item">
+                        <a href="#" class="sub_menu--link">Danh mục 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu--item">
+                <a href="@Url.Action("Logout","Login")" class="menu--link" title="Item 5">
+                    <i class="menu--icon  fa fa-fw fa-lock"></i> <span class="menu--label">Thoát ra</span>
+                </a>
+            </li>
+        </ul>
+        <button id="collapse_menu" class="collapse_menu">
+            <i class="collapse_menu--icon  fa fa-fw"></i> <span class="collapse_menu--label">Đóng/Mở menu</span>
+        </button>
+    </nav>
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+</body>
+</html>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Areas/Admin/Content/cssAdmin.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/hieuUngMenu.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

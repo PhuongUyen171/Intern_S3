@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Model.ProductModel>
+@{
+    ViewBag.Title = "Sản phẩm theo danh mục";
+    Layout = "~/Views/Shared/_LayoutCategory.cshtml";
+}
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+<link href="../../Content/cssMain.css" rel="stylesheet" type="text/css" />
+<link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+<h2 style="color:#ffb0bd;font-size:25px;margin-top:20px;padding-bottom:10px;border-bottom:1px solid #ffb0bd">@ViewBag.Loai</h2>
+<div class="row" style="padding-top:10px">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-sm-6" style="padding-bottom:20px">
+            <img src="../../Content/Image/@item.Images" width="100%" height="200px" />
+            @*<h2><a href="@Url.Action("ThemGioHang", "GioHang", new { @ma=@item.MASP,@ur=Request.Url.ToString() })" style="color:white;text-decoration:none">MUA NGAY</a></h2>*@
+            <br />
+            <div class="tenSp"><a class="tenSp" href="@Url.Action("GetDetailProduct", "Product", new { id =item.ProductID })" class="tenSp">@Truncate(item.ProductName, 23)</a></div>
+            <h1 class="gia">@string.Format("{0:0,0}", item.Price) VNĐ</h1>
+        </div>
+    }
+</div>
+
