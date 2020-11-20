@@ -20,7 +20,6 @@ namespace UI.Areas.Admin.Controllers
             serviceObj = new ServiceRepository();
             url = "https://localhost:44379/api/Employee_API/";
         }
-
         public ActionResult Index(string user)
         {
             try
@@ -53,7 +52,6 @@ namespace UI.Areas.Admin.Controllers
                 ViewBag.Result = "Thiếu thông tin";
             return View();
         }
-
         public ActionResult Logout()
         {
             try
@@ -90,7 +88,6 @@ namespace UI.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login", new { user = model.UserName });
             }
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -107,7 +104,7 @@ namespace UI.Areas.Admin.Controllers
                         {
                             HttpResponseMessage responseUser = serviceObj.GetResponse(url + "GetEmployeeByUsername?user=" + model.UserName);
                             responseUser.EnsureSuccessStatusCode();
-                            Model.EmployeeModel employLogin = responseUser.Content.ReadAsAsync<Model.EmployeeModel>().Result;
+                            EmployeeModel employLogin = responseUser.Content.ReadAsAsync<EmployeeModel>().Result;
 
                             var adSession = new LoginModel();
                             adSession.UserName = employLogin.EmployName;

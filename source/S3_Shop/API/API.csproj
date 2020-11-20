@@ -167,6 +167,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductAdmin_APIController.cs" />
     <Compile Include="Areas\Admin\Controllers\Role_APIController.cs" />
     <Compile Include="Areas\Admin\Controllers\Voucher_APIController.cs" />
+    <Compile Include="Controllers\Cart_APIController.cs" />
     <Compile Include="Controllers\Category_APIController.cs" />
     <Compile Include="Controllers\News_APIController.cs" />
     <Compile Include="Controllers\Product_APIController.cs" />

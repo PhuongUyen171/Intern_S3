@@ -1,0 +1,75 @@
+﻿@model List<UI.Models.CartItem>
+@using UI.Models
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_LayoutCategory.cshtml";
+}
+
+<h2>GIỎ HÀNG</h2>
+<p>(@ViewBag.TongSL sản phẩm)</p>
+@{
+    if (Model != null)
+    {
+        <div class="row">
+            <table align="center" class="col-lg-8" border="0" style="padding-right:20px;">
+                @*<tr style="text-align:center; font-weight:bold">
+                    <td>ẢNH BÌA</td>
+                    <td>MÃ SẢN PHẨM</td>
+                    <td>TÊN SẢN PHẨM</td>
+
+                    <td>SỐ LƯỢNG</td>
+                    <td>ĐƠN GIÁ</td>
+                    <td>THÀNH TIỀN</td>
+                    <td></td>
+                    <td></td>
+                </tr>*@
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><img src="~/Content/Image/@item.Product.Images" style="height:100px;width:100px;" /></td>
+                        @*<td>@item.Product.ProductID</td>*@
+                        <td><a href="@Url.Action("GetDetailProduct", "Product", new { @id = @item.Product.ProductID})">@item.Product.ProductName</a></td>
+
+                        @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @id = item.Product.ProductID }))
+                        {
+                            <td>
+                                <input type="number" min="1" name="txtSl" id="soLuong" value="@item.quantity" style="width:70px;" />
+                            </td>
+                            <td>@String.Format("{0:0,0}", item.Product.Price) VNĐ</td>
+                            @*<td>@String.Format("{0:0,0}", item.thanhTien) VNĐ</td>*@
+                            <td>@Html.ActionLink("Xóa", "XoaGioHang", new { @id = item.Product.ProductID })</td>
+
+                            @*<td><input type="submit" value="Cập nhật" id="btnCapNhat" /></td>*@
+                        }
+                    </tr>
+                }
+            </table>
+            <table class="col-lg-4 bg-light" border="0">
+                <tr>
+                    <td>Mã khuyến mãi:</td>
+                    <td><a href="#">Chọn mã khuyến mãi áp dụng</a></td>
+                </tr>
+                <tr style="text-align:left; font-weight:bold">
+                    <td>Thành tiền: </td>
+                    <td><text name="tongThanhTien" id="tien" style="color:red"> @String.Format("{0:N0}", ViewBag.TongTien) VNĐ</text></td>
+                </tr>
+                <tr></tr>
+                <!--<tr style="color:blue;font-weight:bold">
+                    <td>-->
+                        @*@Html.ActionLink("Xóa tất cả giỏ hàng", "XoaTatCaGioHang", "GioHang")*@
+                    <!--</td>
+                </tr>-->
+                <tr style="color:blue;font-weight:bold">
+                    <td colspan="2">
+                        <a href="@Url.Action("Order","Order")" class="btn btn-pink" style="width:100%">Tiến hành đặt hàng</a>
+                        @*@Html.ActionLink("Đặt hàng", "DatHang", "GioHang")*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Không có sản phẩm nào trong giỏ hàng.</p>
+    }
+}

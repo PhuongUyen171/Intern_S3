@@ -71,6 +71,8 @@ namespace DAL.DAL
             }
         }
         #endregion
+
+        #region get information
         public PRODUCT GetProductByID(int id)
         {
             return db.PRODUCTs.Where(t => t.ProductID == id).FirstOrDefault();
@@ -87,5 +89,10 @@ namespace DAL.DAL
         {
             return db.PRODUCTs.Where(t => t.ProductName.Contains(tim)).ToList();
         }
-    } 
+        public PRODUCT GetPriceProductByID(int id)
+        {
+            return db.PRODUCTs.FirstOrDefault(x => x.ProductID == id);
+        }
+        #endregion
+    }
 }

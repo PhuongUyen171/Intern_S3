@@ -1,13 +1,87 @@
-﻿@*@model Model.ProductModel*@
-@{
+﻿@{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
 }
-<link href="../../Content/css/cssMain.css" rel="stylesheet" type="text/css" />
-<link href="../../Content/css/bootstrap.min.css" rel="stylesheet" />
-
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script>
+    $(document).ready(function () {
+        $('.btn-number').click(function (e) {
+            e.preventDefault();
+            var fieldName = $(this).attr('data-field');
+            var type = $(this).attr('data-type');
+            var input = $("input[name='" + fieldName + "']");
+            var currentVal = parseInt(input.val());
+            if (!isNaN(currentVal)) {
+                if (type == 'minus') {
+                    var minValue = parseInt(input.attr('min'));
+                    if (!minValue) minValue = 1;
+                    if (currentVal > minValue) {
+                        input.val(currentVal - 1).change();
+                    }
+                    if (parseInt(input.val()) == minValue) {
+                        $(this).attr('disabled', true);
+                    }
+                }
+                else if (type == 'plus') {
+                    var maxValue = parseInt(input.attr('max'));
+                    if (!maxValue) maxValue = 9999999999999;
+                    if (currentVal < maxValue) {
+                        input.val(currentVal + 1).change();
+                    }
+                    if (parseInt(input.val()) == maxValue) {
+                        $(this).attr('disabled', true);
+                    }
+                }
+            }
+            else {
+                input.val(0);
+            }
+        });
+        $('.input-number').focusin(function () {
+            $(this).data('oldValue', $(this).val());
+        });
+        $('.input-number').change(function () {
+            var minValue = parseInt($(this).attr('min'));
+            var maxValue = parseInt($(this).attr('max'));
+            if (!minValue) minValue = 1;
+            if (!maxValue) maxValue = 9999999999999;
+            var valueCurrent = parseInt($(this).val());
+            var name = $(this).attr('name');
+            if (valueCurrent >= minValue) {
+                $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+            }
+            else {
+                alert('Sorry, the minimum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+            if (valueCurrent >= maxValue) {
+                $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the maximum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+        });
+        $(".input-number").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .            
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                // Allow: Ctrl+A                
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right                
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything                     
+                return;
+            }
+            // Ensure that it is a number and stop the keypress            
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>*@
 <div class="container-fluid">
+    <!--Chi tiết sản phẩm-->
     <div class="row" style="margin-top:20px">
         <div class="col-lg-6"><img src="../../Content/Image/@Model.Images" width="100%" /></div>
         <div class="col-lg-6">
@@ -15,7 +89,8 @@
             <p>Mã sản phẩm: @Model.ProductID</p>
             <h2>@string.Format("{0:0,0}", Model.Price) VNĐ</h2>
             <p>Số lượng: @Html.TextBox("1")</p>
-            <button type="submit" style="color:white;width:200px;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd" class="btn" align="center">THÊM VÀO GIỎ HÀNG</button>
+            <a href="@Url.Action("AddItem","Cart", new{productID=Model.ProductID,quantity=1})" style="color:white;width:200px;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd" class="btn" align="center">THÊM VÀO GIỎ HÀNG</a>
+            @*<button type="submit" style="color:white;width:200px;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd" class="btn" align="center"><a href="@Url.Action("AddItem","Cart", new{productID=Model.ProductID,quantity=1})">THÊM VÀO GIỎ HÀNG</a></button>*@
             <button type="submit" style="color:white;width:200px;background-color:#ffb0bd;border-radius:5px;border-color:#ffb0bd" class="btn" align="center">MUA NGAY</button>
             <br /><hr />
             <div class="row" style="font-size:16px">
@@ -32,11 +107,8 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <h3 style="background-color:#ffb0bd;color:white;height:50px;width:100%;margin-bottom:20px;margin-top:20px;padding-top:5px">ĐÁNH GIÁ</h3>
+    <!--Đánh giá sản phẩm-->
+    <h3 style="background-color:#ffb0bd;color:white;height:40px;width:100%;margin-bottom:20px;margin-top:20px;padding-top:5px">ĐÁNH GIÁ</h3>
     <div class="row">
         <div class="col-lg-2">
             <img src="../../Content/Image/bi1.jpg" style="border-radius:100%" height="100px" width="100px" />
@@ -106,11 +178,8 @@
         </div>
     </div><br />
 
-
-
-
-
-    <h3 style="background-color:#ffb0bd;color:white;height:50px;width:100%;margin-bottom:20px;margin-top:20px;padding-top:5px">SẢN PHẨM CÙNG DANH MỤC</h3>
+    <!--Sản phẩm cùng danh mục-->
+    <h3 style="background-color:#ffb0bd;color:white;height:40px;width:100%;margin-bottom:20px;margin-top:20px;padding-top:5px">SẢN PHẨM CÙNG DANH MỤC</h3>
     <div class="row">
         <div class="col-lg-3">
             <img src="../../Content/Image/bi1.jpg" width="100%" /><br />
@@ -133,11 +202,39 @@
             <h3 class="gia">45.000 VNĐ</h3>
         </div>
     </div>
+
+    @using (Html.BeginForm("AddItem", "Cart", new { id = Model.ProductID }, FormMethod.Post))
+    {
+        <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                <i class="fs-16 zmdi zmdi-minus"></i>
+            </div>
+
+            <input class="mtext-104 cl3 txt-center num-product" type="number" id="quantity" name="quantity" value="1" max="@ViewBag.QuantityMax" min="1">
+
+            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                <i class="fs-16 zmdi zmdi-plus"></i>
+            </div>
+        </div>
+        @*Lay cai quantity tu input num*@
+
+        if (Model.Quantity > 0)
+        {
+            <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" type="submit">
+                Chọn mua
+            </button>
+        }
+        else
+        {
+            <span class="btn-default">
+                Hết hàng
+            </span>
+        }
+    }
 </div>
 <style>
-    h2{
-        font-weight:bold;
-        text-align:left;
+    h2 {
+        font-weight: bold;
+        text-align: left;
     }
 </style>
-

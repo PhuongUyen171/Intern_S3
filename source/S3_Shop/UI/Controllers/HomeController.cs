@@ -66,7 +66,7 @@ namespace UI.Controllers
         {
             var url = "https://localhost:44379/";
             ServiceRepository serviceObj = new ServiceRepository();
-            HttpResponseMessage response = serviceObj.GetResponse(url + "api/News");
+            HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetAllNews");
             response.EnsureSuccessStatusCode();
             List<Model.NewsModel> list = response.Content.ReadAsAsync<List<Model.NewsModel>>().Result;
             

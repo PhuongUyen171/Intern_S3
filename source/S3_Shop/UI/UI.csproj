@@ -239,6 +239,7 @@
     <Content Include="Content\Image\vi4.jpg" />
     <Content Include="Content\Image\vi5.jpg" />
     <Content Include="Content\Image\vi6.jpg" />
+    <Content Include="Content\Image\white.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -301,6 +302,7 @@
     <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Models\HasPermisionAttribute.cs" />
+    <Compile Include="Models\HtmlHelperExtensions.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MailHelper.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -342,6 +344,9 @@
     <Content Include="Views\User\UserPartial.cshtml" />
     <Content Include="Views\Product\SearchProducts.cshtml" />
     <Content Include="Views\User\ProfileUser.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\CartPartial.cshtml" />
+    <Content Include="Views\Cart\CartIcon.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -352,7 +357,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

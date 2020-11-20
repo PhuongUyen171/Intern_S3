@@ -13,7 +13,7 @@ namespace BLL
     public class EmployeeBLL
     {
         private EmployeeDAL employDal = new EmployeeDAL();
-        public List<Model.EmployeeModel> GetAllEmployees()
+        public List<EmployeeModel> GetAllEmployees()
         {
             EntityMapper<EMPLOYEE, Model.EmployeeModel> mapObj = new EntityMapper<EMPLOYEE, Model.EmployeeModel>();
             List<EMPLOYEE> employList = new EmployeeDAL().GetAllEmployees();
@@ -33,9 +33,9 @@ namespace BLL
         {
             return employDal.CheckEmployeeExist(user, pass);
         }
-        public bool InsertEmployee(Model.EmployeeModel employInsert)
+        public bool InsertEmployee(EmployeeModel employInsert)
         {
-            EntityMapper<Model.EmployeeModel, EMPLOYEE> mapObj = new EntityMapper<Model.EmployeeModel, EMPLOYEE>();
+            EntityMapper<EmployeeModel, EMPLOYEE> mapObj = new EntityMapper<EmployeeModel, EMPLOYEE>();
             EMPLOYEE employObj = mapObj.Translate(employInsert);
             return employDal.InsertEmployee(employObj);
         }

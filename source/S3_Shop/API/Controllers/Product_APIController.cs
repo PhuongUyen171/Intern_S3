@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,25 +14,29 @@ namespace API.Controllers
     {
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpGet]
-        public List<Model.ProductModel> GetAllProducts()
+        public List<ProductModel> GetAllProducts()
         {
             return new ProductBLL().GetAllProducts();
         }
-        public Model.ProductModel GetProductByID(int id)
+        public ProductModel GetProductByID(int id)
         {
             return new ProductBLL().GetProductByID(id);
         }
-        public List<Model.ProductModel> GetProductsByCateID(int id)
+        public List<ProductModel> GetProductsByCateID(int id)
         {
             return new ProductBLL().GetProductsByCateID(id);
         }
-        public List<Model.ProductModel> GetNewProductsByCount(int count)
+        public List<ProductModel> GetNewProductsByCount(int count)
         {
             return new ProductBLL().GetNewProductsByCount(count);
         }
-        public List<Model.ProductModel> GetProductsBySearch(string tim)
+        public List<ProductModel> GetProductsBySearch(string tim)
         {
             return new ProductBLL().GetProductsBySearch(tim);
+        }
+        public ProductModel GetPriceProductByID(int id)
+        {
+            return new ProductBLL().GetPriceProductByID(id);
         }
     }
 }

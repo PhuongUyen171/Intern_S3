@@ -34,7 +34,7 @@ namespace UI.Controllers
             responseListProduct.EnsureSuccessStatusCode();
             List<Model.ProductModel> list = responseListProduct.Content.ReadAsAsync<List<Model.ProductModel>>().Result;
             //Tên danh mục
-            HttpResponseMessage responseCategory= serviceObj.GetResponse(url + "api/Category/GetCategoryByID/" + list.First().CategoryID);
+            HttpResponseMessage responseCategory= serviceObj.GetResponse(url + "api/Category_API/GetCategoryByID/" + list.First().CategoryID);
             Model.CategoryModel cate = responseCategory.Content.ReadAsAsync<Model.CategoryModel>().Result;
             if (cate != null)
             {

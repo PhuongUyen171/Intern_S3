@@ -55,7 +55,6 @@ namespace BLL
             }
             return (List<Model.ProductModel>)products;
         }
-
         public List<ProductModel> GetProductsBySearch(string tim)
         {
             EntityMapper<DAL.EF.PRODUCT, Model.ProductModel> mapObj = new EntityMapper<DAL.EF.PRODUCT, Model.ProductModel>();
@@ -66,6 +65,14 @@ namespace BLL
                 products.Add(mapObj.Translate(item));
             }
             return (List<Model.ProductModel>)products;
+        }
+        public ProductModel GetPriceProductByID(int id)
+        {
+            EntityMapper<PRODUCT, ProductModel> mapObj = new EntityMapper<DAL.EF.PRODUCT, Model.ProductModel>();
+            PRODUCT product = proDal.GetPriceProductByID(id);
+            ProductModel result = new ProductModel();
+            result = mapObj.Translate(product);
+            return result;
         }
         #endregion
 

@@ -17,5 +17,6 @@ namespace Model.Common
         public static int COUNT_LOGIN_FAIL_ADMIN = 0;
         public static int COUNT_LOGIN_FAIL_USER = 0;
         public static string AUTHENTICATIONEMAIL_SESSION = "AUTHENTICATIONEMAIL_SESSION";
+        public static string CART_SESSION = "CART_SESSION";
     }
 }

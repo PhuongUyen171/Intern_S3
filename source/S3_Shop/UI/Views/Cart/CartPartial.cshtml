@@ -1,52 +1,60 @@
-﻿@model UI.Models.UserLogin
-@*<link href="~/Content/cssMain.css" rel="stylesheet" />*@
-<div class="account_user">
-    @{
-        UI.Models.UserLogin cus = Session["USER_SESSION"] as UI.Models.UserLogin;
-        if (cus != null)
-        {
-            <ul>
-                <li><a href="@Url.Action("ProfileUser","User",new { usr = cus.UserName})">@cus.FullName</a></li>
-                <li>@Html.ActionLink("Thoát", "Logout", "User")</li>
-                <li>@Html.ActionLink("Giỏ hàng", "Index", "Cart")</li>
+﻿@model List<UI.Models.CartItem>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+@using UI.Models
+@*<div class="wrap-header-cart js-panel-cart">
+        <div class="s-full js-hide-cart"></div>
 
-            </ul>
-        }
-        else
-        {
-            <ul>
-                <li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>
-                <li>@Html.ActionLink("Đăng ký", "Signin", "User")</li>
-                <li>@Html.ActionLink("Giỏ hàng", "Index", "Cart")</li>
-            </ul>
-        } 
-    }
-</div>
-<style>
-    .account_user {
-        float: right;
-    }
+        <div class="header-cart flex-col-l p-l-65 p-r-25">
+            <div class="header-cart-title flex-w flex-sb-m p-b-8">
+                <span class="mtext-103 cl2">
+                    Giỏ hàng của bạn
+                </span>
 
-        .account_user li {
-            display: inline;
-            border-left: 1px dotted #CCC;
-        }
+                <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                    <i class="zmdi zmdi-close"></i>
+                </div>
+            </div>
 
-            .account_user li:first-child {
-                border: none;
-            }
+            <div class="header-cart-content flex-w js-pscroll">
+                @if (@Model.Count() > 0)
+                {
+                    <ul class="header-cart-wrapitem w-full">
+                        @foreach (var item in Model)
+                        {
+                            <li class="header-cart-item flex-w flex-t m-b-12">
+                                <div class="header-cart-item-img">
+                                    <img src="@HtmlHelperExtensions.ImageBookOrDefault(item.Product.ProductID,1)" alt="IMG">
+                                </div>
 
-            .account_user li a {
-                font-size: 16px;
-                color: black;
-                padding: 0 10px;
-            }
+                                <div class="header-cart-item-txt p-t-8">
+                                    <a href="/Assets/Customer/cozastore/#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                        @item.Product.ProductName
+                                    </a>
 
-                .account_user li a:hover {
-                    color: #ffb0bd;
+                                    <span class="header-cart-item-info">
+                                        @item.Quantity x @item.Product.Price.ToString("N0")
+                                    </span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="w-full">
+                        <div class="header-cart-total w-full p-tb-40">
+                            Thành tiền: @ViewBag.ThanhTien đồng
+                        </div>
+
+                        <div class="header-cart-buttons flex-w w-full">
+                            <a href="@Url.Action("Index","Cart")" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                Xem giỏ hàng
+                            </a>
+                        </div>
+                    </div>
                 }
-</style>
 
+            </div>
+        </div>
+    </div>*@
 <style>
     .cart {
         width: 40px;
@@ -71,27 +79,27 @@
             box-shadow: inset 0 0 7px 0 rgba(0, 0, 0, 0.5);
         }
 
-    .cart:hover .popup {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-        -webkit-animation-duration: 200ms;
-        -webkit-animation-name: show-popup;
-        -webkit-animation-direction: normal;
-        -webkit-animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
-        -moz-animation-duration: 200ms;
-        -moz-animation-name: show-popup;
-        -moz-animation-direction: normal;
-        -moz-animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
-        -o-animation-duration: 200ms;
-        -o-animation-name: show-popup;
-        -o-animation-direction: normal;
-        -o-animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
-        animation-duration: 200ms;
-        animation-name: show-popup;
-        animation-direction: normal;
-        animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
-    }
+            .cart:hover .popup {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: auto;
+                -webkit-animation-duration: 200ms;
+                -webkit-animation-name: show-popup;
+                -webkit-animation-direction: normal;
+                -webkit-animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
+                -moz-animation-duration: 200ms;
+                -moz-animation-name: show-popup;
+                -moz-animation-direction: normal;
+                -moz-animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
+                -o-animation-duration: 200ms;
+                -o-animation-name: show-popup;
+                -o-animation-direction: normal;
+                -o-animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
+                animation-duration: 200ms;
+                animation-name: show-popup;
+                animation-direction: normal;
+                animation-timing-function: cubic-bezier(1, 0.18, 1, 0.93);
+            }
 
     /* popup window style */
     .popup {
@@ -248,3 +256,26 @@
         background-position: center;
     }
 </style>
+
+<div class="cart">
+    <div class="popup">
+        <div class="row header">
+            <span>Items</span>
+            <span>Amount</span>
+        </div>
+        <div class="row items">
+            <span>Macbook Pro</span>
+            <span>$2,345.12</span>
+        </div>
+
+        <div class="row items">
+            <span>Sony Vio</span>
+            <span>$1,228.45</span>
+        </div>
+
+        <div class="row checkout">
+            <span><a href="#">View Cart ></a></span>
+            <span class="checkout-button">Checkout</span>
+        </div>
+    </div>
+</div>

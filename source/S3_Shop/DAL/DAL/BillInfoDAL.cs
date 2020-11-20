@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.EF;
+using Model.Common;
 
 namespace DAL.DAL
 {
@@ -20,9 +21,82 @@ namespace DAL.DAL
         {
             try
             {
-                db.BILLINFOes.Add(billInfo);
-                db.SaveChanges();
+                //Hết hàng
+                var product = db.PRODUCTs.Find(billInfo.ProductID);
+                if (product.Quantity < billInfo.Quantity)
+                    return false;
+                List<BILLINFO> cart = db.BILLINFOes.Where(t => t.BillID == billInfo.BillID).ToList(); 
+                if (cart != null)//Có bill rồi
+                {
+                    //Giỏ hàng có sp thì cộng dồn
+                    if (cart.Exists(x=>x.ProductID==billInfo.ProductID))
+                    {
+                        foreach (var item in cart)
+                            if (item.ProductID == billInfo.ProductID)
+                                item.Quantity += billInfo.Quantity;
+                    }
+                    else //Giỏ hàng chưa có thì thêm mới
+                    {
+                        var item = new BILLINFO
+                        {
+                            BillID = billInfo.BillID,
+                            ProductID = billInfo.ProductID,
+                            Price = billInfo.Price,
+                            Quantity = billInfo.Quantity
+                        };
+                        db.BILLINFOes.Add(item);
+                        db.SaveChanges();
+                    }
+                }
+                //else
+                //{
+
+                //}
                 return true;
+                /*
+        var product = db.Saches.Find(id);
+            var cart = Session[CartSession];
+            if (cart != null)
+            {
+                var list = (List<CartItem>)cart;
+                if (list.Exists(x => x.Sach.SachID == id))
+                {
+
+                    foreach (var item in list)
+                    {
+                        if (item.Sach.SachID == id)
+                        {
+                            item.Quantity += quantity;
+                        }
+                    }
+                }
+                else
+                {
+                    //tạo mới đối tượng cart item
+                    var item = new CartItem();
+                    item.Sach = product;
+                    item.Quantity = quantity;
+                    list.Add(item);
+                }
+                //Gán vào session
+                Session[CartSession] = list;
+            }
+            else
+            {
+                //tạo mới đối tượng cart item
+                var item = new CartItem();
+                item.Sach = product;
+                item.Quantity = quantity;
+                var list = new List<CartItem>();
+                list.Add(item);
+                //Gán vào session
+                Session[CartSession] = list;
+            }
+            return RedirectToAction("Index");
+                 */
+                //db.BILLINFOes.Add(billInfo);
+                //db.SaveChanges();
+                //return true;
             }
             catch (Exception)
             {
@@ -64,15 +138,18 @@ namespace DAL.DAL
                 return false;
             }
         }
+
+        #endregion
+
+        #region Get Information
         public List<BILLINFO> GetAllBillInfoByID(int id)
         {
             return db.BILLINFOes.Where(t => t.BillID == id).ToList();
         }
-        #endregion
         public BILLINFO GetBillInfoByBillInforID(int billID, int productID)
         {
             return db.BILLINFOes.FirstOrDefault(t => t.BillID == billID & t.ProductID == productID);
         }
-        
+        #endregion
     }
 }

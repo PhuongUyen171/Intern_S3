@@ -21,5 +21,10 @@ namespace UI.Models
                 return 1;
             }
         }
+        public CartItem(ProductModel model,int quantity)
+        {
+            this.Product = model;
+            quantity = 1;
+        }
     }
 }

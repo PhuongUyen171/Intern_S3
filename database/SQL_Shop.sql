@@ -12353,10 +12353,10 @@ SELECT * FROM WARD
 SELECT * FROM COUNTRY
 
 update employee
-set statu=1
+set pass='202cb962ac59075b964b07152d234b70'
 where employid=2
 delete customer
-where customid=7
+where customid=11
 select * 
 SET DATEFORMAT DMY
 INSERT INTO NEWS(Title,Images, Descrip, PublishDate) VALUES('Moji Homeware','tin6.jpg',N'Tuần này Moji đã quay lại và mang tới cho các bạn bộ sưu tập đồ trang trí nhà cửa đây, đảm bảo siêu bắt mắt và xinh lung linh luôn ~

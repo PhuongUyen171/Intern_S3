@@ -56,8 +56,10 @@ namespace DAL.DAL
                 return false;
             }
         }
-        
+
         #endregion
+
+        #region Get Information
         public BILL GetBillByID(int id)
         {
             return db.BILLs.FirstOrDefault(t => t.BillID == id);
@@ -80,5 +82,6 @@ namespace DAL.DAL
                          select t).Sum(x => x.Price * x.Price);
             return (total != null) ? total : 0;
         }
+        #endregion
     }
 }
