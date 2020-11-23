@@ -33,15 +33,18 @@ namespace UI.Controllers
             HttpResponseMessage responseListProduct = serviceObj.GetResponse(url + "api/Product_API/GetProductsByCateID/" + id);
             responseListProduct.EnsureSuccessStatusCode();
             List<Model.ProductModel> list = responseListProduct.Content.ReadAsAsync<List<Model.ProductModel>>().Result;
-            //Tên danh mục
-            HttpResponseMessage responseCategory= serviceObj.GetResponse(url + "api/Category_API/GetCategoryByID/" + list.First().CategoryID);
-            Model.CategoryModel cate = responseCategory.Content.ReadAsAsync<Model.CategoryModel>().Result;
-            if (cate != null)
+            if (list.Count!=0)
             {
-                ViewBag.Loai = cate.CateName;
-                return View(list);
+                //Tên danh mục
+                HttpResponseMessage responseCategory = serviceObj.GetResponse(url + "api/Category_API/GetCategoryByID/" + list.First().CategoryID);
+                Model.CategoryModel cate = responseCategory.Content.ReadAsAsync<Model.CategoryModel>().Result;
+                if (cate != null)
+                {
+                    ViewBag.Loai = cate.CateName;
+                    return View(list);
+                }
             }
-            return this.View();
+            return View("~/Views/Shared/404.cshtml");
         }
         [HttpPost]
         public ActionResult SearchProducts(FormCollection c)

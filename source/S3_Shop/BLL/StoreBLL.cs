@@ -37,9 +37,7 @@ namespace BLL
             List<STORE> storeList = storeDal.GetStoriesByLocation(local);
             List<Model.StoreModel> stores = new List<Model.StoreModel>();
             foreach (var item in storeList)
-            {
                 stores.Add(mapObj.Translate(item));
-            }
             return stores;
         }
     }

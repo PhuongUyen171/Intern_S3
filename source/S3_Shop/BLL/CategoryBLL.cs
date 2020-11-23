@@ -1,5 +1,7 @@
 ﻿using BLL.Common;
 using DAL.DAL;
+using DAL.EF;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +15,33 @@ namespace BLL
         CategoryDAL cate = new CategoryDAL();
         public List<Model.CategoryModel> GetAllCategories()
         {
-            EntityMapper<DAL.EF.CATEGORY, Model.CategoryModel> mapObj = new EntityMapper<DAL.EF.CATEGORY, Model.CategoryModel>();
-            List<DAL.EF.CATEGORY> cateList = new CategoryDAL().GetAllCategories();
-            List<Model.CategoryModel> categories = new List<Model.CategoryModel>();
+            EntityMapper<CATEGORY,CategoryModel> mapObj = new EntityMapper<CATEGORY, CategoryModel>();
+            List<CATEGORY> cateList = new CategoryDAL().GetAllCategories();
+            List<CategoryModel> categories = new List<CategoryModel>();
             foreach (var item in cateList)
             {
                 categories.Add(mapObj.Translate(item));
             }
-            return (List<Model.CategoryModel>)categories;
+            return (List<CategoryModel>)categories;
         }
         public Model.CategoryModel GetCategoryByID(int id)
         {
-            EntityMapper<DAL.EF.CATEGORY, Model.CategoryModel> mapObj = new EntityMapper<DAL.EF.CATEGORY, Model.CategoryModel>();
-            DAL.EF.CATEGORY cate = new CategoryDAL().GetCategoryByID(id);
-            Model.CategoryModel result = new Model.CategoryModel();
+            EntityMapper<CATEGORY, CategoryModel> mapObj = new EntityMapper<CATEGORY, CategoryModel>();
+            CATEGORY cate = new CategoryDAL().GetCategoryByID(id);
+            CategoryModel result = new CategoryModel();
             result = mapObj.Translate(cate);
             return result;
+        }
+        public List<CategoryModel> GetCategoryByCount(int count)
+        {
+            EntityMapper<CATEGORY, CategoryModel> mapObj = new EntityMapper<CATEGORY, CategoryModel>();
+            List<CATEGORY> cateList = new CategoryDAL().GetCategoryByCount(count);
+            List<CategoryModel> categories = new List<CategoryModel>();
+            foreach (var item in cateList)
+            {
+                categories.Add(mapObj.Translate(item));
+            }
+            return (List<CategoryModel>)categories;
         }
     }
 }

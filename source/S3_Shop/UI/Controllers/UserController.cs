@@ -15,6 +15,7 @@ using System.Net.Http.Formatting;
 using Facebook;
 using System.Configuration;
 using System.Web.Script.Serialization;
+using NLog;
 
 namespace UI.Controllers
 {
@@ -22,6 +23,7 @@ namespace UI.Controllers
     {
         string url;
         ServiceRepository serviceObj;
+        //private readonly ILogger<UserController> logger;
         private Uri RedirectUri
         {
             get
@@ -38,6 +40,10 @@ namespace UI.Controllers
             serviceObj = new ServiceRepository();
             url = "https://localhost:44379/api/User_API/";
         }
+        //public UserController(ILogger<UserController> logger)
+        //{
+
+        //}
 
         #region chức năng đăng nhập user
         public ActionResult Login()

@@ -241,6 +241,24 @@ INSERT INTO PRODUCT(ProductName, Price,Quantity,Images,Statu,CateID) VALUES
 (N'Sổ tay khủng long xanh đủ màu',30000,50,'so4.jpg',1,6),
 (N'Sổ vở học tập màu hồng bling bling',40000,30,'so5.jpg',1,6),
 (N'Sổ tay hình máy game xanh chuối',70000,50,'so6.jpg',1,6)
+INSERT INTO PRODUCT(ProductName, Price,Quantity,Images,Statu,CateID) VALUES
+(N'Túi giấy xinh xách tay đem theo 1',150000,150,'bi1.jpg',1,8),
+(N'Túi giấy xinh xách tay đem theo 2',100000,152,'bi2.jpg',1,8),
+(N'Túi giấy xinh xách tay đem theo 3',120000,153,'bi3.jpg',1,8),
+(N'Túi giấy xách tay đem theo 4',140000,151,'bi4.jpg',1,8),
+(N'Dụng cụ học tập bút viết 1',15000,15,'but1.jpg',1,6),
+(N'Dụng cụ học tập bút viết 2',20000,15,'but2.jpg',1,6),
+(N'Dụng cụ học tập bút viết 4',21000,15,'but4.jpg',1,6),
+(N'Đồ dùng làm đẹp cho tóc',15000,15,'kep1.jpg',1,10),
+(N'Đồ dùng làm đẹp cho tóc',16000,15,'kep2.jpg',1,10),
+(N'Đồ dùng làm đẹp cho tóc',23000,15,'kep3.jpg',1,10),
+(N'Đồ dùng làm đẹp cho tóc',22000,15,'kep4.jpg',1,10),
+(N'Túi xinh xách tay đem theo 1',150000,150,'bi1.jpg',1,8),
+(N'Túi xinh xách tay đem theo 2',100000,152,'bi2.jpg',1,8),
+(N'Túi xinh xách tay đem theo 3',120000,153,'bi3.jpg',1,8),
+(N'Túi xinh xách tay đem theo 4',140000,151,'bi4.jpg',1,8)
+
+
 
 -- PERMISION
 INSERT INTO PERMISION (GroupID, RoleID,PerID) VALUES('SALE',1,0)

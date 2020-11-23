@@ -1,0 +1,24 @@
+﻿@model Model.NewsModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_LayoutCategory.cshtml";
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<div>
+    <h2 class="titleNews">@Model.Title</h2>
+    <p style="text-align:right;font-style:italic;">Ngày đăng: @String.Format("{0:dd/MM/yyyy}",Model.PublishDate)</p>
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8" style="text-align:center;"><img src="~/Content/Image/@Model.Images" width="100%" /></div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-12"><p>@Model.Descrip</p></div>
+    </div>
+</div>
+<a href="@Url.Action("","Home")">Trở về trang chủ</a>
+<style>
+    titleNews {
+        font-size: 20px;
+        color: #ffb0bd;
+    }
+</style>

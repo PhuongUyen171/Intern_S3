@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Model.StoreModel>
+
+@{
+    ViewBag.Title = "Chi nhánh";
+    Layout = "~/Views/Shared/_LayoutCategory.cshtml";
+}
+<link href="~/Content/cssMain.css" rel="stylesheet" />
+<div class="heading" align="center" style="padding-bottom:50px">
+    Hệ thống cửa hàng
+    @{
+        if (Model.Count()!=0)
+        {
+            if (Model.First().City == "HN")
+            {
+                <ul>
+                    <li><a href="HeThong">Tất cả</a></li>
+                    <li><a href="@Url.Action("ChiNhanh","Home",new{ local="HN"})" class="active">Hà Nội</a></li>
+                    <li><a href="@Url.Action("ChiNhanh","Home", new { local="HCM"})">TP.HCM</a></li>
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    <li><a href="HeThong">Tất cả</a></li>
+                    <li><a href="@Url.Action("ChiNhanh","Home",new{ local="HN"})">Hà Nội</a></li>
+                    <li><a href="@Url.Action("ChiNhanh","Home", new { local="HCM"})" class="active">TP.HCM</a></li>
+                </ul>
+            }
+        }
+
+    }
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-lg-5 col-sm-5 col-md-5">
+            <img src="~/Content/Image/@item.Images" style="height:300px;width:100%;" />
+        </div>
+        <div class="col-lg-7 col-sm-7 col-md-7">
+            <i class="fas fa-map-marker-alt"></i>@item.Location
+            @{
+                if (@item.City == "HN")
+                {
+                    <p>Hà Nội</p>
+                }
+
+                else
+                {
+                    <p>Hồ Chí Minh</p>
+                }
+            }
+            <i class="fas fa-phone-alt"></i>@item.Phone<br />
+        </div>
+    </div>
+    
+}
+

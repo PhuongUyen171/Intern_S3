@@ -74,5 +74,9 @@ namespace DAL.DAL
         {
             return db.NEWS.FirstOrDefault(t=>t.NewsID==id);
         }
+        public List<NEWS> GetNewsByCount(int count)
+        {
+            return db.NEWS.Take(count).ToList();
+        }
     }
 }

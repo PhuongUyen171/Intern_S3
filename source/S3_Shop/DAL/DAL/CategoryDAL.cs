@@ -75,5 +75,9 @@ namespace DAL.DAL
         {
             return db.CATEGORies.Where(t => t.CateID == id).FirstOrDefault();
         }
+        public List<CATEGORY> GetCategoryByCount(int count)
+        {
+            return db.CATEGORies.Take(count).ToList();
+        }
     }
 }

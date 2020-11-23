@@ -8,11 +8,13 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using UI.Models;
+using Model;
 
 namespace UI.Controllers
 {
     public class HomeController : Controller
     {
+        private string url;
         public ActionResult Index()
         {
             UserLogin model = CheckAccount();
@@ -22,7 +24,7 @@ namespace UI.Controllers
                 Session[Constants.USER_SESSION] = model;
             }
             int num = 8;
-            var url = "https://localhost:44379/";
+            url = "https://localhost:44379/";
             ServiceRepository serviceObj = new ServiceRepository();
             HttpResponseMessage response = serviceObj.GetResponse(url + "api/Product_API/GetNewProductsByCount?count="+num);
             response.EnsureSuccessStatusCode();
@@ -64,31 +66,39 @@ namespace UI.Controllers
 
         public ActionResult TinTuc()
         {
-            var url = "https://localhost:44379/";
+            url = "https://localhost:44379/";
             ServiceRepository serviceObj = new ServiceRepository();
             HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetAllNews");
             response.EnsureSuccessStatusCode();
             List<Model.NewsModel> list = response.Content.ReadAsAsync<List<Model.NewsModel>>().Result;
-            
             return View(list);
         }
         #region PartialView
         public ActionResult CategoryPartial()
         {
-            var url = "https://localhost:44379/";
+            int num = 9;
+            url = "https://localhost:44379/";
             ServiceRepository serviceObj = new ServiceRepository();
-            HttpResponseMessage response = serviceObj.GetResponse(url + "api/Category_API/GetAllCategories");
+            HttpResponseMessage response = serviceObj.GetResponse(url + "api/Category_API/GetCategoryByCount?count="+num);
             response.EnsureSuccessStatusCode();
-            List<Model.CategoryModel> list = response.Content.ReadAsAsync<List<Model.CategoryModel>>().Result;
-
+            List<CategoryModel> list = response.Content.ReadAsAsync<List<CategoryModel>>().Result;
             return View(list);
         }
         public ActionResult SearchPartial()
         {
             return PartialView();
         }
+        public ActionResult NewsPartial()
+        {
+            int num = 3;
+            url = "https://localhost:44379/";
+            ServiceRepository serviceObj = new ServiceRepository();
+            HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetNewsByCount?count=" + num);
+            response.EnsureSuccessStatusCode();
+            List<NewsModel> list = response.Content.ReadAsAsync<List<NewsModel>>().Result;
+            return View(list);
+        }
         #endregion
-
         public UserLogin CheckAccount()
         {
             UserLogin result = null;
@@ -105,25 +115,24 @@ namespace UI.Controllers
                 result = new UserLogin { UserID = int.Parse(id), UserName = username, FullName = fullname };
             return result;
         }
-        //public ActionResult ChiNhanhHaNoi()
-        //{
-        //    var hn = data.CUAHANGs.Where(m => m.Vung == "HN");
-        //    return View(hn);
-        //}
-        //public ActionResult ChiNhanhHCM()
-        //{
-        //    var hcm = data.CUAHANGs.Where(m => m.Vung == "HCM");
-        //    return View(hcm);
-        //}
-        //public ActionResult TinTuc()
-        //{
-        //    var tintuc = from tt in data.TINTUCs select tt;
-        //    return View(tintuc);
-        //}
-        //public ActionResult ChiTietTinTuc(string id)
-        //{
-        //    var chitiet = data.TINTUCs.First(m => m.MaTin == id);
-        //    return View(chitiet);
-        //}
+        public ActionResult ChiNhanh(string local)
+        {
+            url = "https://localhost:44379/";
+            ServiceRepository serviceObj = new ServiceRepository();
+            HttpResponseMessage response = serviceObj.GetResponse(url + "api/Store_API/GetStoreByLocation?local=" + local);
+            response.EnsureSuccessStatusCode();
+            List<StoreModel> list = response.Content.ReadAsAsync<List<StoreModel>>().Result;
+            return View(list);
+        }
+        public ActionResult GetDetailNews(int id)
+        {
+            url = "https://localhost:44379/";
+            ServiceRepository serviceObj = new ServiceRepository();
+            HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetDetailNews/"+id);
+            response.EnsureSuccessStatusCode();
+            NewsModel result = response.Content.ReadAsAsync<NewsModel>().Result;
+            return View(result);
+        }
+        
     }
 }

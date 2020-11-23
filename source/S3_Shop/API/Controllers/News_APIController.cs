@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Model;
 
 namespace API.Controllers
 {
@@ -14,9 +15,17 @@ namespace API.Controllers
         // GET: News
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpGet]
-        public List<Model.NewsModel> GetAllNews()
+        public List<NewsModel> GetAllNews()
         {
             return new NewsBLL().GetAllNews();
+        }
+        public NewsModel GetDetailNews(int id)
+        {
+            return new NewsBLL().GetNewsByID(id);
+        }
+        public List<NewsModel> GetNewsByCount(int count)
+        {
+            return new NewsBLL().GetNewsByCount(count);
         }
     }
 }

@@ -17,24 +17,18 @@
     </div>
     <div class="container-fluid">
         <div class="row header2">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-2">
+            <div class="col-lg-1 col-sm-1"></div>
+            <div class="col-lg-2 col-sm-3">
                 <a href="@Url.Action("Index","Home")">
-                    <img src="../../Content/Image/store_1580801513_542.png" align="center" height="50px" width="80px"  style="margin-top:10px" />
+                    <img src="../../Content/Image/store_1580801513_542.png" height="50" width="100" style="margin-top:10px" />
                 </a>
             </div>
-            <div class="col-lg-6">
-                <form style="padding-top:35px">
-                    <input type="text" placeholder="Tìm kiếm sản phẩm" name="tim" width="100%" />
-                    <button type="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </form>
+            <div class="col-lg-5 col-sm-5">
+                @Html.Action("SearchPartial", "Home")
             </div>
-            <div class="col-lg-2" style="padding-top:35px">
-                @Html.ActionLink("Đăng Nhập", "Login", "User")|@Html.ActionLink("Đăng Ký", "Signin", "User")|<i class="fas fa-cart-arrow-down" style="font-size:20px"></i>
+            <div class="col-lg-4" style="padding-top:35px; padding-right:50px;">
+                @Html.Action("UserPartial", "User")
             </div>
-            <div class="col-lg-1"></div>
         </div>
     </div>
     @Html.Action("CategoryPartial", "Home")

@@ -78,7 +78,7 @@ namespace DAL.DAL
         }
         public List<STORE> GetStoriesByLocation(string local)
         {
-            return db.STOREs.Where(t => t.Location == local).ToList();
+            return db.STOREs.Where(t => t.City == local).ToList();
         }
     }
 }

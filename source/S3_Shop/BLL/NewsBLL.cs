@@ -5,22 +5,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
+using DAL.EF;
 
 namespace BLL
 {
     public class NewsBLL
     {
         NewsDAL newDal = new NewsDAL();
-        public List<Model.NewsModel> GetAllNews()
+        public List<NewsModel> GetAllNews()
         {
-            EntityMapper<DAL.EF.NEWS, Model.NewsModel> mapObj = new EntityMapper<DAL.EF.NEWS, Model.NewsModel>();
-            List<DAL.EF.NEWS> list = new NewsDAL().GetAllNews();
-            List<Model.NewsModel> news = new List<Model.NewsModel>();
+            EntityMapper<NEWS, NewsModel> mapObj = new EntityMapper<NEWS, NewsModel>();
+            List<NEWS> list = new NewsDAL().GetAllNews();
+            List<NewsModel> news = new List<NewsModel>();
             foreach (var item in list)
-            {
                 news.Add(mapObj.Translate(item));
-            }
-            return (List<Model.NewsModel>)news;
+            return (List<NewsModel>)news;
+        }
+        public NewsModel GetNewsByID(int id)
+        {
+            EntityMapper<NEWS, NewsModel> mapObj = new EntityMapper<NEWS, NewsModel>();
+            NEWS news = new NewsDAL().GetNewsByID(id);
+            NewsModel result = mapObj.Translate(news);
+            return result;
+        }
+        public List<NewsModel> GetNewsByCount(int count)
+        {
+            EntityMapper<NEWS, NewsModel> mapObj = new EntityMapper<NEWS, NewsModel>();
+            List<NEWS> list = new NewsDAL().GetNewsByCount(count);
+            List<NewsModel> news = new List<NewsModel>();
+            foreach (var item in list)
+                news.Add(mapObj.Translate(item));
+            return (List<NewsModel>)news;
         }
     }
 }
