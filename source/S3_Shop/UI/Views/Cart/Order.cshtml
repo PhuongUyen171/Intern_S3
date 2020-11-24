@@ -1,0 +1,74 @@
+﻿@model IEnumerable<UI.Models.CartItem>
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutIntroduce.cshtml";
+}
+@{
+    UI.Models.UserLogin cus = Session["USER_SESSION"] as UI.Models.UserLogin;
+}
+<div class="row">
+    <div class="col-lg-3 col-sm-12 col-md-12" style="border-right:1px solid black;">
+        <h1 class="tieuDe1">1.Thông tin người nhận</h1> 
+        @Html.TextBox(cus.UserName)
+        @Html.TextBox(cus.FullName)
+    </div>
+    <div class="col-lg-4 col-sm-12 col-md-12" style="border-right:1px solid black;">
+        <h1 class="tieuDe1">2.Phương thức thanh toán</h1>
+        <input type="radio" id="chuyenKhoan" name="check" />Chuyển khoản trước toàn bộ tiền hàng<br />
+        <input type="radio" id="thanhToan" name="check" />Thanh toán khi nhận hàng
+        <p style="color:#673939; font-size:12px;">
+            Với phương thức Chuyển khoản trước toàn bộ tiền hàng, bộ phận CSKH sẽ gọi điện đến bạn để xác nhận đơn hàng và hướng dẫn cách thức thanh toán chuyển khoản<br />
+            Thanh toán khi nhận hàng (COD) chỉ áp dụng cho các đơn hàng ở các quận/huyện dưới đây thuộc Hà Nội/TP.HCM:
+            <br />
+            + Hà Nội: Quận Hoàn Kiếm, Ba Đình, Đống Đa, Hoàng Mai, Hai Bà Trưng, Cầu Giấy, Thanh Xuân, Tây Hồ, Từ Liêm, Hà Đông, Long Biên, Gia Lâm, Sơn Tây, Ba Vì, Mê Linh, Đông Anh, Thường Tín, Thanh Trì
+            <br />
+            + HCM: Quận 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, Tân Bình, Tân Phú, Phú Nhuận, Bình Thạnh, Gò Vấp, Bình Tân, Thủ Đức, Bình Chánh, Nhà Bè, Hooc Môn
+        </p>
+    </div>
+    <div class="col-lg-5 col-sm-12 col-md-12">
+        <h1 class="tieuDe1">3.Thông tin giỏ hàng</h1> 
+        <table border="0">
+            <tr style="border-bottom:1px solid #808080">
+                <td>Sản phẩm</td>
+                <td>Số lượng</td>
+                <td>Thành tiền</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            @item.Product.ProductName<br />
+                            Đơn giá: @String.Format("{0:N0}", item.Product.Price) VNĐ
+                        </p>
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>@String.Format("{0:N0}", item.Quantity * item.Product.Price) VNĐ</td>
+                </tr>
+            }
+            <tr style="border-bottom:1px solid #808080">
+                <td>Tạm tính:</td>
+                <td></td>
+                <td>@String.Format("{0:N0}", ViewBag.TongTien) VNĐ</td>
+            </tr>
+            <tr style="border-bottom:1px solid #808080">
+                <td>Mã giảm giá:</td>
+                <td></td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Tổng tiền:</td>
+                <td></td>
+                <td>@String.Format("{0:N0}", ViewBag.TongTien) VNĐ</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<style>
+    .tieuDe1 {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffb0bd;
+    }
+</style>
+

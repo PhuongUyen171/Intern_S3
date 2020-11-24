@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Model;
 
 namespace UI.Models
 {
@@ -20,6 +21,5 @@ namespace UI.Models
         public long UserID { set; get; }
         public string FullName { set; get; }
         public UserLogin() {  }
-
     }
 }

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<UI.Models.CartItem>
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutIntroduce.cshtml";
+}
+@{ 
+    UI.Models.UserLogin cus = Session["USER_SESSION"] as UI.Models.UserLogin;
+}
+<div class="row">
+    <div class="col-lg-5 col-sm-12 col-md-12">
+        1.Thông tin người nhận
+        @Html.TextBoxFor(cus.UserName, new { @placeholder = "Tên đăng nhập" })
+        @*@Html.TextBox(cus.Phone, new { @placeholder = "Điện thoại" })*@
+        @Html.TextBoxFor(cus.FullName, new { @placeholder = "Họ tên người dùng" })
+    </div>
+    <div class="col-lg-2 col-sm-12 col-md-12">
+        2.Phương thức thanh toán<br />
+        <input type="checkbox" id="chuyenKhoan" name="check" />Chuyển khoản trước toàn bộ tiền hàng<br />
+        <input type="checkbox" id="thanhToan" name="check"/>Thanh toán khi nhận hàng
+    </div>
+    <div class="col-lg-5 col-sm-12 col-md-12">
+        3.Thông tin giỏ hàng
+        <table border="0">
+            <tr style="border-bottom:1px solid #808080">
+                <td>Sản phẩm</td>
+                <td>Số lượng</td>
+                <td>Thành tiền</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            @item.Product.ProductName<br />
+                            Đơn giá: @String.Format("{0:N0}", item.Product.Price) VNĐ
+                        </p>
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>@String.Format("{0:N0}", item.Quantity * item.Product.Price) VNĐ</td>
+                </tr>
+            }
+            <tr style="border-bottom:1px solid #808080">
+                <td>Tạm tính:</td>
+                <td></td>
+                <td>@String.Format("{0:N0}",ViewBag.TongTien) VNĐ</td>
+            </tr>
+            <tr style="border-bottom:1px solid #808080">
+                <td>Mã giảm giá:</td>
+                <td></td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Tổng tiền:</td>
+                <td></td>
+                <td>@String.Format("{0:N0}", ViewBag.TongTien) VNĐ</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<style>
+
+</style>
+

@@ -21,17 +21,17 @@ namespace DAL.DAL
         {
             return db.BILLs.ToList();
         }
-        public bool InsertBill(BILL bill)
+        public int InsertBill(BILL bill)
         {
             try
             {
                 db.BILLs.Add(bill);
                 db.SaveChanges();
-                return true;
+                return bill.BillID;
             }
             catch (Exception)
             {
-                return false;
+                return 0;
             }
         }
         public bool UpdateBill(BILL bill)
@@ -56,7 +56,6 @@ namespace DAL.DAL
                 return false;
             }
         }
-
         #endregion
 
         #region Get Information

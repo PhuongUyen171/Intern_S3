@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Model;
 
 namespace UI.Controllers
 {
@@ -32,12 +33,12 @@ namespace UI.Controllers
             //List sản phẩm
             HttpResponseMessage responseListProduct = serviceObj.GetResponse(url + "api/Product_API/GetProductsByCateID/" + id);
             responseListProduct.EnsureSuccessStatusCode();
-            List<Model.ProductModel> list = responseListProduct.Content.ReadAsAsync<List<Model.ProductModel>>().Result;
+            List<ProductModel> list = responseListProduct.Content.ReadAsAsync<List<ProductModel>>().Result;
             if (list.Count!=0)
             {
                 //Tên danh mục
                 HttpResponseMessage responseCategory = serviceObj.GetResponse(url + "api/Category_API/GetCategoryByID/" + list.First().CategoryID);
-                Model.CategoryModel cate = responseCategory.Content.ReadAsAsync<Model.CategoryModel>().Result;
+                CategoryModel cate = responseCategory.Content.ReadAsAsync<CategoryModel>().Result;
                 if (cate != null)
                 {
                     ViewBag.Loai = cate.CateName;

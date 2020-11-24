@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using DAL.DAL;
 using DAL.EF;
 using BLL.Common;
+using Model;
 
 namespace BLL
 {
     public class BillBLL
     {
         private BillDAL billDal = new BillDAL();
-        public List<Model.BillModel> GetAllBills()
+        public List<BillModel> GetAllBills()
         {
             EntityMapper<BILL, Model.BillModel> mapObj = new EntityMapper<BILL, Model.BillModel>();
             List<BILL> billList = billDal.GetAllBills();
@@ -23,20 +24,20 @@ namespace BLL
             }
             return bills;
         }
-        public Model.BillModel GetBillByID(int id)
+        public BillModel GetBillByID(int id)
         {
             EntityMapper<BILL, Model.BillModel> mapObj = new EntityMapper<BILL, Model.BillModel>();
             BILL bill = billDal.GetBillByID(id);
             Model.BillModel result = mapObj.Translate(bill);
             return result;
         }
-        public bool InsertBill(Model.BillModel billInsert)
+        public int InsertBill(BillModel billInsert)
         {
             EntityMapper<Model.BillModel, BILL> mapObj = new EntityMapper<Model.BillModel, BILL>();
             BILL billObj = mapObj.Translate(billInsert);
             return billDal.InsertBill(billObj);
         }
-        public bool UpdateBill(Model.BillModel billUpdate)
+        public bool UpdateBill(BillModel billUpdate)
         {
             EntityMapper<Model.BillModel, BILL> mapObj = new EntityMapper<Model.BillModel, BILL>();
             BILL billObj = mapObj.Translate(billUpdate);
