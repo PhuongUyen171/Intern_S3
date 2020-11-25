@@ -1,14 +1,11 @@
-﻿using Model.Common;
-using System;
+﻿using Model;
+using Model.Common;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using UI.Models;
-using System.Web.Script.Serialization;
-using Model;
-using API.Models;
 using System.Net.Http;
+using System.Web.Mvc;
+using UI.Helpers;
+using UI.Models;
 
 namespace UI.Controllers
 {

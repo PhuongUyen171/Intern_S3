@@ -1,12 +1,9 @@
-﻿using API.Models;
-using System;
+﻿using Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using Model;
+using UI.Helpers;
 
 namespace UI.Controllers
 {

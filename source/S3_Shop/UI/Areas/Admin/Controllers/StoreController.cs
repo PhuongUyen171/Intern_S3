@@ -1,11 +1,9 @@
-﻿using API.Models;
+﻿using Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
-using Model.Common;
+using UI.Helpers;
 
 namespace UI.Areas.Admin.Controllers
 {

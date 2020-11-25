@@ -1,21 +1,18 @@
-﻿using API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Web.Mvc;
-using UI.Models;
+﻿using Facebook;
 using Model;
 using Model.Common;
-using WebMatrix.WebData;
-using System.Net.Mail;
-using System.Net;
-using System.Net.Http.Formatting;
-using Facebook;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Mail;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using NLog;
+using UI.Helpers;
+using UI.Models;
 
 namespace UI.Controllers
 {

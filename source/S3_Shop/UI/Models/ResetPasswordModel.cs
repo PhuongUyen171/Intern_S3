@@ -24,9 +24,5 @@ namespace UI.Models
         [Key]
         public string Mail { get; set; }
         public ResetPasswordModel() { }
-        //public RegisterModel GetRegisterModelByID(int id)
-        //{
-
-        //}
     }
 }

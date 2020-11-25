@@ -1,0 +1,42 @@
+﻿@model Model.CategoryModel
+@{
+    ViewBag.Title = "Chi tiết danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>CHI TIẾT DANH MỤC</h2>
+
+<div>
+    <h4>DANH MỤC</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CateID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CateID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Images)
+        </dt>
+
+        <dd>
+            <img src="~/Content/Image/@Model.Images" />
+            @*@Html.DisplayFor(model => model.FullName)*@
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CateID }) |
+    @Html.ActionLink("Trở về trang chủ", "Index")
+</p>
