@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using log4net;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,8 +10,9 @@ namespace UI.Areas.Admin.Controllers
 {
     public class CustomerController : Controller
     {
-        string url;
-        ServiceRepository serviceObj;
+        private string url;
+        private ServiceRepository serviceObj;
+        private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public CustomerController()
         {
             serviceObj = new ServiceRepository();
@@ -28,6 +30,7 @@ namespace UI.Areas.Admin.Controllers
             }
             catch (Exception)
             {
+                log.Error("Cannot connect to customer page.");
                 throw;
             }
         }

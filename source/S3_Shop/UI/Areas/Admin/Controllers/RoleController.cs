@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using log4net;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,6 +12,7 @@ namespace UI.Areas.Admin.Controllers
     {
         private ServiceRepository serviceObj;
         private string url;
+        private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public RoleController()
         {
             url = "https://localhost:44379/api/Role_API/";
@@ -27,6 +29,7 @@ namespace UI.Areas.Admin.Controllers
             }
             catch (Exception)
             {
+                log.Error("Cannot connect to role page.");
                 throw;
             }
         }
