@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿
+using log4net;
 using Model;
 using Model.Common;
 using System.Collections.Generic;
@@ -19,12 +20,17 @@ namespace UI.Controllers
             url = "https://localhost:44379/";
             serviceObj = new ServiceRepository();
         }
+        //public string GetCustomerByToken(string token)
+        //{
+        //    return TokenManager.ValidateToken(token);
+        //}
         public ActionResult Index()
         {
             try
             {
                 UserLogin model = CheckAccount();
-                if (model != null)
+
+                if (model != null && Session[Constants.TOKEN_NUMBER] != null)
                 {
                     model.FullName = new UserController().GetCustomerByUsername(model.UserName).CustomName;
                     Session[Constants.USER_SESSION] = model;
@@ -42,6 +48,7 @@ namespace UI.Controllers
                 return View("404");
             }
         }
+
         #region trang tĩnh
         public ActionResult ChinhSachBanHang()
         {
@@ -241,5 +248,6 @@ namespace UI.Controllers
             }
             
         }
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using Facebook;
+﻿
+using Facebook;
 using Model;
 using Model.Common;
 using Newtonsoft.Json;
@@ -40,10 +41,6 @@ namespace UI.Controllers
             serviceObj = new ServiceRepository();
             url = "https://localhost:44379/api/User_API/";
         }
-        //public UserController(ILogger<UserController> logger)
-        //{
-
-        //}
 
         #region chức năng đăng nhập user
         public ActionResult Login()
@@ -53,7 +50,11 @@ namespace UI.Controllers
                 return View();
             else
             {
+                //Save token API
                 Session[Constants.USER_SESSION] = model;
+                string tokenUser = GetToken(model.UserName);
+                HttpCookie cookie = new HttpCookie(Constants.TOKEN_NUMBER, tokenUser);
+                Response.Cookies.Add(cookie);
                 return RedirectToAction("ProfileUser", "User", new { usr = model.UserName });
             }
         }
@@ -82,12 +83,17 @@ namespace UI.Controllers
                                 Password=customLogin.Pass
                             };
                             Session.Add(Constants.USER_SESSION, u);
-                            //if (model.RememberMe)
-                            //{
-                            string token = GetToken(u.UserName);
-                            HttpCookie cookie = new HttpCookie("token");
-                        HttpContext.Response.Cookies.Remove("token");
+                            
+                            //Save token API
+                            string tokenUser = GetToken(u.UserName);
+                            HttpCookie cookie = new HttpCookie(Constants.TOKEN_NUMBER,tokenUser);
+                            HttpContext.Response.Cookies.Remove(Constants.TOKEN_NUMBER);
+                            Response.Cookies.Add(cookie);
+                            cookie.Expires = DateTime.Now.AddDays(1);
+                            cookie.Value = tokenUser;
+                            HttpContext.Response.SetCookie(cookie);
 
+                            //Save cookies
                             HttpCookie ckUserAccount = new HttpCookie("usernameCustomer");
                             ckUserAccount.Expires = DateTime.Now.AddHours(48);
                             ckUserAccount.Value = u.UserName;
@@ -102,7 +108,6 @@ namespace UI.Controllers
                             ckNameAccount.Expires = DateTime.Now.AddHours(48);
                             ckNameAccount.Value = u.FullName;
                             Response.Cookies.Add(ckNameAccount);
-                            //}
                             return RedirectToAction("ProfileUser", "User", new { usr = customLogin.Username });
                         }
                     case 0:
@@ -137,6 +142,12 @@ namespace UI.Controllers
                     HttpCookie cknameAccount = new HttpCookie("nameCustomer");
                     cknameAccount.Expires = DateTime.Now.AddHours(-48);
                     Response.Cookies.Add(cknameAccount);
+                }
+                if (Response.Cookies[Constants.TOKEN_NUMBER] != null)
+                {
+                    HttpCookie cookie = new HttpCookie(Constants.TOKEN_NUMBER);
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Add(cookie);
                 }
                 Constants.COUNT_LOGIN_FAIL_USER = 0;
                 return RedirectToAction("Index", "Home");
@@ -214,26 +225,12 @@ namespace UI.Controllers
             {
                 return View("~/Views/Shared/404.cshtml");
             }
-
-            //using (var context = new LoginRegistrationInMVCEntities())
-            //{
-            //var user = context.RegisterUsers.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
-            //if (user != null)
-            //{
-            //HttpResponseMessage response = serviceObj.GetResponse(url + "GetCustomerByEmail?mail=" + mail);
-            //response.EnsureSuccessStatusCode();
             CustomerModel result = GetCustomerByEmail(mail);
             ResetPasswordModel mode = new ResetPasswordModel();
             mode.Id = result.CustomID;
             mode.Mail = mail;
             mode.ResetCode = id;
             return View(mode);
-            //}
-            //else
-            //{
-            //     return View("~/Views/Shared/404.cshtml");
-            //}
-
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -285,12 +282,6 @@ namespace UI.Controllers
 
                     HttpResponseMessage response = serviceObj.PostResponse(url + "InsertCustomer/", c);
                     response.EnsureSuccessStatusCode();
-                    //return RedirectToAction("Index");
-
-                    //admin.MatKhauMaHoa = Encryptor.SHA256Encrypt(admin.MatKhauMaHoa);
-                    //admin.TrangThai = true;
-                    //db.Admins.Add(admin);
-                    //db.SaveChanges();
 
                     UserLogin u = new UserLogin
                     {
@@ -316,7 +307,7 @@ namespace UI.Controllers
         }
         #endregion
 
-        #region đăng nhập bằng FB, GG
+        #region chức năng đăng nhập bằng FB, GG
         public ActionResult LoginFacebook()
         {
             var fb = new FacebookClient();
@@ -373,6 +364,14 @@ namespace UI.Controllers
                     };
                     Session.Add(Constants.USER_SESSION, u);
 
+                    //Save token API
+                    string token = GetToken(u.UserName);
+                    HttpCookie cookie = new HttpCookie(Constants.TOKEN_NUMBER);
+                    HttpContext.Response.Cookies.Remove(Constants.TOKEN_NUMBER);
+                    cookie.Expires = DateTime.Now.AddDays(1);
+                    cookie.Value = token;
+                    HttpContext.Response.SetCookie(cookie);
+
                     //if (model.RememberMe)
                     //{
                     HttpCookie ckUserAccount = new HttpCookie("usernameCustomer");
@@ -412,10 +411,19 @@ namespace UI.Controllers
                 UserName = accountSocials.Email,
                 Password = ""
             };
+            //Save token API
+            string token = GetToken(u.UserName);
+            HttpCookie cookie = new HttpCookie(Constants.TOKEN_NUMBER);
+            HttpContext.Response.Cookies.Remove(Constants.TOKEN_NUMBER);
+            cookie.Expires = DateTime.Now.AddDays(1);
+            cookie.Value = token;
+            HttpContext.Response.SetCookie(cookie);
 
+            //Save session
             Session.Remove(Constants.USER_SESSION);
             Session.Add(Constants.USER_SESSION, u);
 
+            //Save cookies
             HttpCookie ckUserAccount = new HttpCookie("usernameCustomer");
             ckUserAccount.Expires = DateTime.Now.AddHours(48);
             ckUserAccount.Value = u.UserName;
@@ -448,6 +456,8 @@ namespace UI.Controllers
             return resultInsert;
         }
         #endregion
+
+        #region cập nhật thông tin
         [HttpGet]
         public ActionResult ProfileUser(string usr)
         {
@@ -460,6 +470,10 @@ namespace UI.Controllers
             if (ModelState.IsValid)
             {
                 HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateCustomer", model);
+                //Change token
+                HttpCookie cookie = HttpContext.Request.Cookies.Get(Constants.TOKEN_NUMBER);
+                string token = cookie.Value.ToString();
+
                 response.EnsureSuccessStatusCode();
                 bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
                 if (resultUpdate)
@@ -471,12 +485,29 @@ namespace UI.Controllers
                 ModelState.AddModelError("","Thiếu thông tin.");
             return View(model);
         }
+        #endregion
+
+        #region get information customer
+        [HttpGet]
         public CustomerModel GetCustomerByUsername(string user)
         {
             HttpResponseMessage response = serviceObj.GetResponse(url + "GetCustomerByUsername?user=" + user);
             response.EnsureSuccessStatusCode();
             CustomerModel result = response.Content.ReadAsAsync<CustomerModel>().Result;
             return result;
+        }
+        public CustomerModel GetCustomerByToken(string token)
+        {
+            HttpResponseMessage response = serviceObj.GetResponse(url + "GetCustomerByToken?token=" + token);
+            response.EnsureSuccessStatusCode();
+            CustomerModel result = response.Content.ReadAsAsync<CustomerModel>().Result;
+            return result;
+        }
+        public string GetToken(string username)
+        {
+            HttpResponseMessage response = serviceObj.GetResponse(url + "GetToken?username=" + username);
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsAsync<string>().Result;
         }
         public JsonResult GetAuthenticationInEmail(string Email)
         {
@@ -497,6 +528,8 @@ namespace UI.Controllers
             else
                 return Json(new { status = false });
         }
+        #endregion
+
         public ActionResult UserPartial()
         {
             return PartialView();
@@ -517,52 +550,45 @@ namespace UI.Controllers
                 result = new UserLogin { UserID = int.Parse(id), UserName = username,FullName=fullname };
             return result;
         }
-        public async Task<ActionResult> GetToken()
-        {
-            var token = string.Empty;
-            using(var client =new HttpClient())
-            {
-                client.DefaultRequestHeaders.Clear();
-                client.BaseAddress = new Uri(url);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = await client.GetAsync("/api/User_API/ValidLogin?user=admin&pass=admin");
-                if(response.IsSuccessStatusCode)
-                {
-                    var result = response.Content.ReadAsStringAsync().Result;
-                    token = JsonConvert.DeserializeObject<string>(result);
-                    Session[Constants.TOKEN_NUMBER] = token;
-                    Session["TEST"] = "admin";
-                }    
-            }
-            return Content(token);
-        }
-        [HttpGet]
-        [CustomAuthenticationFilter]
-        public async Task<ActionResult> GetEmployee()
-        {
-            var result = string.Empty;
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Clear();
-                client.BaseAddress = new Uri(url);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session[Constants.TOKEN_NUMBER].ToString()+":"+Session["TEST"].ToString());
-                var response = await client.GetAsync("/api/User_API/ValidLogin?user=admin&pass=admin");
-                if (response.IsSuccessStatusCode)
-                {
-                    var token = response.Content.ReadAsStringAsync().Result;
-                    result = JsonConvert.DeserializeObject<string>(token);
-                    //Session[Constants.TOKEN_NUMBER] = token;
-                }
-            }
-            return Content(result);
-        }
-        public string GetToken(string username)
-        {
-            ServiceRepository service = new ServiceRepository();
-            HttpResponseMessage responseCheckAccount = service.GetResponse("/api/User_API/GetToken/" + username);
-            responseCheckAccount.EnsureSuccessStatusCode();
-            return responseCheckAccount.Content.ReadAsAsync<string>().Result;
-        }
+        //public async Task<ActionResult> GetToken()
+        //{
+        //    var token = string.Empty;
+        //    using(var client =new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Clear();
+        //        client.BaseAddress = new Uri(url);
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        var response = await client.GetAsync(url+"ValidLogin?user=admin&pass=admin");
+        //        if(response.IsSuccessStatusCode)
+        //        {
+        //            var result = response.Content.ReadAsStringAsync().Result;
+        //            token = JsonConvert.DeserializeObject<string>(result);
+        //            Session[Constants.TOKEN_NUMBER] = token;
+        //            Session["TEST"] = "admin";
+        //        }    
+        //    }
+        //    return Content(token);
+        //}
+        //[HttpGet]
+        //[CustomAuthenticationFilter]
+        //public async Task<ActionResult> GetEmployee()
+        //{
+        //    var result = string.Empty;
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Clear();
+        //        client.BaseAddress = new Uri(url);
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session[Constants.TOKEN_NUMBER].ToString()+":"+Session["TEST"].ToString());
+        //        var response = await client.GetAsync(url+"ValidLogin?user=admin&pass=admin");
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var token = response.Content.ReadAsStringAsync().Result;
+        //            result = JsonConvert.DeserializeObject<string>(token);
+        //            //Session[Constants.TOKEN_NUMBER] = token;
+        //        }
+        //    }
+        //    return Content(result);
+        //}
     }
 }

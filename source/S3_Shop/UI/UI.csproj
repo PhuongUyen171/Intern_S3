@@ -321,7 +321,6 @@
     <Compile Include="Models\AccountSocial.cs" />
     <Compile Include="Models\AuthenticationEmail.cs" />
     <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\CustomAuthenticationFilter.cs" />
     <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Models\HasPermisionAttribute.cs" />
@@ -385,12 +384,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj">
-      <Project>{8F2B43A1-33BC-48D0-B7B4-B1D1D3198B4E}</Project>
-      <Name>API</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
