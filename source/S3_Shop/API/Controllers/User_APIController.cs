@@ -3,6 +3,7 @@ using BLL;
 using log4net;
 using Model;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -13,6 +14,7 @@ namespace API.Controllers
     {
         private CustomerBLL cusBll = new CustomerBLL();
         private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public static string Secret = "ThisIsUyenSuperSuperSecretKey1hai3bon5sau7tam";
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpGet]
         public int GetLoginResultByUsernamePassword(string user, string pass)
@@ -32,9 +34,9 @@ namespace API.Controllers
         public HttpResponseMessage ValidLogin(string user, string pass)
         {
             if (user == "admin" && pass == "admin")
-                return Request.CreateResponse(System.Net.HttpStatusCode.OK, TokenManager.GenerateToken(user));
+                return Request.CreateResponse(HttpStatusCode.OK, TokenManager.GenerateToken(user));
             else
-                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest,"Not valid");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Not valid");
         }
         //public string GetLoginResultByUsernamePassword(string user, string pass)
         //{
@@ -125,26 +127,16 @@ namespace API.Controllers
                 throw;
             }
         }
-        //[Route("UserLogin")]
-        //[HttpPost]
-        //public ResponseVM UserLogin(userLogin objVM)
-        //{
-        //    var objlst = wmsEN.Usp_Login(objVM.UserName, UtilityVM.Encryptdata(objVM.Passward), "").ToList<Usp_Login_Result>().FirstOrDefault();
-        //    if (objlst.Status == -1) return new ResponseVM
-        //    {
-        //        Status = "Invalid",
-        //        Message = "Invalid User."
-        //    };
-        //    if (objlst.Status == 0) return new ResponseVM
-        //    {
-        //        Status = "Inactive",
-        //        Message = "User Inactive."
-        //    };
-        //    else return new ResponseVM
-        //    {
-        //        Status = "Success",
-        //        Message = TokenManager.GenerateToken(objVM.UserName)
-        //    };
-        //}
+        public string GetToken(string username)
+        {
+            try
+            {
+                return TokenManager.GenerateToken(username);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

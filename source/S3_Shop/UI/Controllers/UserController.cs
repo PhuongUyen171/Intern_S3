@@ -1,13 +1,16 @@
 ﻿using Facebook;
 using Model;
 using Model.Common;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -18,8 +21,8 @@ namespace UI.Controllers
 {
     public class UserController : Controller
     {
-        string url;
-        ServiceRepository serviceObj;
+        private string url;
+        private ServiceRepository serviceObj;
         //private readonly ILogger<UserController> logger;
         private Uri RedirectUri
         {
@@ -81,6 +84,10 @@ namespace UI.Controllers
                             Session.Add(Constants.USER_SESSION, u);
                             //if (model.RememberMe)
                             //{
+                            string token = GetToken(u.UserName);
+                            HttpCookie cookie = new HttpCookie("token");
+                        HttpContext.Response.Cookies.Remove("token");
+
                             HttpCookie ckUserAccount = new HttpCookie("usernameCustomer");
                             ckUserAccount.Expires = DateTime.Now.AddHours(48);
                             ckUserAccount.Value = u.UserName;
@@ -509,6 +516,53 @@ namespace UI.Controllers
             if (!string.IsNullOrEmpty(username) & !string.IsNullOrEmpty(id) &!string.IsNullOrEmpty(fullname))
                 result = new UserLogin { UserID = int.Parse(id), UserName = username,FullName=fullname };
             return result;
+        }
+        public async Task<ActionResult> GetToken()
+        {
+            var token = string.Empty;
+            using(var client =new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await client.GetAsync("/api/User_API/ValidLogin?user=admin&pass=admin");
+                if(response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    token = JsonConvert.DeserializeObject<string>(result);
+                    Session[Constants.TOKEN_NUMBER] = token;
+                    Session["TEST"] = "admin";
+                }    
+            }
+            return Content(token);
+        }
+        [HttpGet]
+        [CustomAuthenticationFilter]
+        public async Task<ActionResult> GetEmployee()
+        {
+            var result = string.Empty;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session[Constants.TOKEN_NUMBER].ToString()+":"+Session["TEST"].ToString());
+                var response = await client.GetAsync("/api/User_API/ValidLogin?user=admin&pass=admin");
+                if (response.IsSuccessStatusCode)
+                {
+                    var token = response.Content.ReadAsStringAsync().Result;
+                    result = JsonConvert.DeserializeObject<string>(token);
+                    //Session[Constants.TOKEN_NUMBER] = token;
+                }
+            }
+            return Content(result);
+        }
+        public string GetToken(string username)
+        {
+            ServiceRepository service = new ServiceRepository();
+            HttpResponseMessage responseCheckAccount = service.GetResponse("/api/User_API/GetToken/" + username);
+            responseCheckAccount.EnsureSuccessStatusCode();
+            return responseCheckAccount.Content.ReadAsAsync<string>().Result;
         }
     }
 }
