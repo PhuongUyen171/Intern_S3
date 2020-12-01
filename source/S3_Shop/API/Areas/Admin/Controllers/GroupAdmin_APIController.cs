@@ -27,6 +27,7 @@ namespace API.Areas.Admin.Controllers
         {
             return grBll.DeleteGroupAdmin(id);
         }
+        [HttpPut]
         public bool UpdateGroupAdmin(GroupAdminModel grUpdate)
         {
             return grBll.UpdateGroupAdmin(grUpdate);

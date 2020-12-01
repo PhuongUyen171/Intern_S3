@@ -8,7 +8,7 @@
 <h2>QUẢN LÝ NHÓM ADMIN</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateGroupAdmin")
 </p>
 <table class="table">
     <tr style="background-color:darkgrey;">
@@ -30,9 +30,9 @@
             @Html.DisplayFor(modelItem => item.GroupName)
         </td>
         <td>
-            <button class="btn btn-primary">@Html.ActionLink("Edit", "EditGroupAdmin", new { id = item.GroupID }, new { @style = "color:white;" }) </button>
-            <button class="btn btn-success">@Html.ActionLink("Details", "DetailGroupAdmin", new { id = item.GroupID }, new { @style = "color:white;" })</button>
-            <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteGroupAdmin", new { id = item.GroupID }, new { @style = "color:white;" })</button>
+            <button class="btn btn-primary">@Html.ActionLink("Edit", "EditGroupAdmin", new { id = item.GroupID.TrimEnd() }, new { @style = "color:white;" }) </button>
+            <button class="btn btn-success">@Html.ActionLink("Details", "DetailGroupAdmin", new { id = item.GroupID.TrimEnd() }, new { @style = "color:white;" })</button>
+            <button class="btn btn-danger">@Html.ActionLink("Delete", "DeleteGroupAdmin", new { id = item.GroupID.TrimEnd() }, new { @style = "color:white;" })</button>
         </td>
     </tr>
 }

@@ -15,7 +15,7 @@ namespace Model
         public int Quantity { get; set; }
         public string Images { get; set; }
         public Nullable<bool> Statu { get; set; }
-        public Nullable<int> CategoryID { get; set; }
+        public Nullable<int> CateID { get; set; }
 
     }
 }

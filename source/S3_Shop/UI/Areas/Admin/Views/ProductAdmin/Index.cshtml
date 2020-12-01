@@ -42,10 +42,10 @@
                 @String.Format("{0:0,0}", item.Price) VNĐ
             </td>
             <td>
-                @String.Format("{0:0,0}", item.Quantity) VNĐ
+                @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Statu) %
+                @Html.DisplayFor(modelItem => item.Statu)
             </td>
             <td>
                 <button class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @style = "color:white;" }) </button>

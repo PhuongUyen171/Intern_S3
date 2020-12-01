@@ -41,9 +41,25 @@ namespace UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UpdateGroupAdmin(GroupAdminModel grUpdate)
         {
-            HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateGroupAdmin/", grUpdate);
-            response.EnsureSuccessStatusCode();
-            return RedirectToAction("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateGroupAdmin", grUpdate);
+                    response.EnsureSuccessStatusCode();
+                    bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
+                    if(resultUpdate)
+                        return RedirectToAction("Index");
+                    return ViewBag.ThongBao = "Chỉnh sửa thông tin thất bại";
+                }
+                return View("404");
+            }
+            catch (Exception)
+            {
+                return View("404");
+                throw;
+            }
+            
         }
         public ActionResult DetailGroupAdmin(string id)
         {
@@ -60,15 +76,42 @@ namespace UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult CreateGroupAdmin(GroupAdminModel grInsert)
         {
-            HttpResponseMessage response = serviceObj.PostResponse(url + "InsertGroupAdmin/", grInsert);
-            response.EnsureSuccessStatusCode();
-            return RedirectToAction("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    HttpResponseMessage response = serviceObj.PostResponse(url + "InsertGroupAdmin/", grInsert);
+                    response.EnsureSuccessStatusCode();
+                    return RedirectToAction("Index");
+                }
+                return View();
+            }
+            catch (Exception)
+            {
+                return View("404");
+                throw;
+            }
         }
         public ActionResult DeleteGroupAdmin(string id)
         {
-            HttpResponseMessage response = serviceObj.DeleteResponse(url + "DeleteGroupAdmin/" + id);
-            response.EnsureSuccessStatusCode();
-            return RedirectToAction("Index");
+            try
+            {
+                HttpResponseMessage response = serviceObj.DeleteResponse(url + "DeleteGroupAdmin/" + id);
+                response.EnsureSuccessStatusCode();
+                bool resultDel = response.Content.ReadAsAsync<bool>().Result;
+                if (resultDel)
+                    return RedirectToAction("Index");
+                else
+                {
+                    return View("ComingSoon");
+                }
+            }
+            catch (Exception)
+            {
+                return View("404");
+                throw;
+            }
+            
         }
     }
 }

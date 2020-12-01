@@ -13,7 +13,6 @@ namespace UI.Models
 
         [Display(Name = "Tên đăng nhập")]
         [Required(ErrorMessage = "Yêu cầu nhập tên đăng nhập")]
-
         public string UserName { set; get; }
 
         [Display(Name = "Mật khẩu")]

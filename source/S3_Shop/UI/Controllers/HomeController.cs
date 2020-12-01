@@ -2,6 +2,7 @@
 using log4net;
 using Model;
 using Model.Common;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Mvc;
@@ -20,26 +21,24 @@ namespace UI.Controllers
             url = "https://localhost:44379/";
             serviceObj = new ServiceRepository();
         }
-        //public string GetCustomerByToken(string token)
-        //{
-        //    return TokenManager.ValidateToken(token);
-        //}
         public ActionResult Index()
         {
             try
             {
+
                 UserLogin model = CheckAccount();
 
                 if (model != null && Session[Constants.TOKEN_NUMBER] != null)
                 {
                     model.FullName = new UserController().GetCustomerByUsername(model.UserName).CustomName;
                     Session[Constants.USER_SESSION] = model;
+                    log.Info("User is on cookies.");
                 }
                 int num = 8;
                 HttpResponseMessage response = serviceObj.GetResponse(url + "api/Product_API/GetNewProductsByCount?count=" + num);
                 response.EnsureSuccessStatusCode();
                 List<ProductModel> list = response.Content.ReadAsAsync<List<ProductModel>>().Result;
-                log.Info("Connect to index page.");
+                log.Info("Connect to index page successful.");
                 return View(list);
             }
             catch (System.Exception)
@@ -54,11 +53,12 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Load page ChinhSachBanHang successfully.");
                 return View();
             }
             catch (System.Exception)
             {
-                log.Error("Unable to find page.");
+                log.Error("Unable to find page: Chinh sach ban hang.");
                 return View("404.cshtml");
             }
         }
@@ -67,11 +67,12 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Load page HuongDanMuaHang successfully.");
                 return View();
             }
             catch (System.Exception)
             {
-                log.Error("Unable to find page.");
+                log.Error("Unable to find page: HuongDanMuaHang.");
                 return View("404.cshtml");
             }
         }
@@ -80,11 +81,12 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Load page Introduce successfully.");
                 return View();
             }
             catch (System.Exception)
             {
-                log.Error("Unable to find page.");
+                log.Error("Unable to find page: Introduce");
                 return View("404.cshtml");
             }
         }
@@ -93,11 +95,12 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Load page TuyenDung successfully.");
                 return View();
             }
             catch (System.Exception)
             {
-                log.Error("Unable to find page.");
+                log.Error("Unable to find page: TuyenDung.");
                 return View("404.cshtml");
             }
         }
@@ -106,11 +109,12 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Load page HeThong successfully.");
                 return View();
             }
             catch (System.Exception)
             {
-                log.Error("Unable to find page.");
+                log.Error("Unable to find page: HeThong.");
                 return View("404.cshtml");
             }
         }
@@ -119,11 +123,12 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Load page VanHoa successfully.");
                 return View();
             }
             catch (System.Exception)
             {
-                log.Error("Unable to find page.");
+                log.Error("Unable to find page: VanHoa.");
                 return View("404.cshtml");
             }
         }
@@ -132,16 +137,18 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Prepare to connect page TinTuc.");
                 url = "https://localhost:44379/";
                 serviceObj = new ServiceRepository();
                 HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetAllNews");
                 response.EnsureSuccessStatusCode();
                 List<Model.NewsModel> list = response.Content.ReadAsAsync<List<Model.NewsModel>>().Result;
+                log.Info("Get list news successfully.");
                 return View(list);
             }
             catch (System.Exception)
             {
-                log.Error("Unable to connect page.");
+                log.Error("Unable to connect page TinTuc");
                 throw;
             }
             
@@ -149,25 +156,27 @@ namespace UI.Controllers
         #region PartialView
         public ActionResult CategoryPartial()
         {
-            //try
-            //{
+            try
+            {
+                log.Info("Prepare to load CategoryPartial");
                 int num = 9;
                 HttpResponseMessage response = serviceObj.GetResponse(url + "api/Category_API/GetCategoryByCount?count=" + num);
                 response.EnsureSuccessStatusCode();
                 List<CategoryModel> list = response.Content.ReadAsAsync<List<CategoryModel>>().Result;
+                log.Info("Get list category successfully.");
                 return View(list);
-            //}
-            //catch (System.Exception)
-            //{
-            //    log.Error("Unable to load partial.");
-            //    throw;
-            //}
-            
+            }
+            catch (Exception ex)
+            {
+                log.Error("Unable to load category partial ");
+                throw;
+            }
         }
         public ActionResult SearchPartial()
         {
             try
             {
+                log.Info("Load search partial successfully.");
                 return PartialView();
             }
             catch (System.Exception)
@@ -180,17 +189,19 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Prepare to load NewsPartial");
                 int num = 3;
                 url = "https://localhost:44379/";
                 ServiceRepository serviceObj = new ServiceRepository();
                 HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetNewsByCount?count=" + num);
                 response.EnsureSuccessStatusCode();
                 List<NewsModel> list = response.Content.ReadAsAsync<List<NewsModel>>().Result;
+                log.Info("Get list news successfully.");
                 return View(list);
             }
             catch (System.Exception)
             {
-                log.Error("Unable to connect partial.");
+                log.Error("Unable to load news partial.");
                 throw;
             }
             
@@ -210,22 +221,25 @@ namespace UI.Controllers
                 fullname = Request.Cookies["nameCustomer"].Value;
             if (!string.IsNullOrEmpty(username) & !string.IsNullOrEmpty(id) & !string.IsNullOrEmpty(fullname))
                 result = new UserLogin { UserID = int.Parse(id), UserName = username, FullName = fullname };
+            log.Info("Response result check account is using.");
             return result;
         }
         public ActionResult ChiNhanh(string local)
         {
             try
             {
+                log.Info("Prepare to load page ChiNhanh.");
                 url = "https://localhost:44379/";
                 serviceObj = new ServiceRepository();
                 HttpResponseMessage response = serviceObj.GetResponse(url + "api/Store_API/GetStoreByLocation?local=" + local);
                 response.EnsureSuccessStatusCode();
                 List<StoreModel> list = response.Content.ReadAsAsync<List<StoreModel>>().Result;
+                log.Info("Get list stores successfully.");
                 return View(list);
             }
             catch (System.Exception)
             {
-                log.Error("Unable to connect page.");
+                log.Error("Unable to load page ChiNhanh.");
                 throw;
             }
             
@@ -234,11 +248,13 @@ namespace UI.Controllers
         {
             try
             {
+                log.Info("Prepare to get detail new");
                 url = "https://localhost:44379/";
                 serviceObj = new ServiceRepository();
                 HttpResponseMessage response = serviceObj.GetResponse(url + "api/News_API/GetDetailNews/" + id);
                 response.EnsureSuccessStatusCode();
                 NewsModel result = response.Content.ReadAsAsync<NewsModel>().Result;
+                log.Info("Get information news by id successfully.");
                 return View(result);
             }
             catch (System.Exception)
@@ -246,8 +262,6 @@ namespace UI.Controllers
                 log.Error("Unable to connect page.");
                 throw;
             }
-            
         }
-        
     }
 }

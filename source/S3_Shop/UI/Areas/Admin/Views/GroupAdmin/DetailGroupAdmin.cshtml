@@ -1,0 +1,41 @@
+﻿@model Model.GroupAdminModel
+
+@{
+    ViewBag.Title = "Chi tiết group admin";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>CHI TIẾT GROUP ADMIN</h2>
+
+<div>
+    <h4>GROUP ADMIN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditGroupAdmin", new { id = Model.GroupID.Trim() }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

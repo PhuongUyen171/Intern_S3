@@ -25,16 +25,18 @@ namespace UI.Areas.Admin.Controllers
         }
         public ActionResult Index(string user)
         {
+            log.Info("Load admin profile.");
             try
             {
                 HttpResponseMessage response = serviceObj.GetResponse(url + "GetEmployeeByUsername?user=" + user);
                 response.EnsureSuccessStatusCode();
+                log.Info("Get information admin.");
                 Model.EmployeeModel resultLogin = response.Content.ReadAsAsync<Model.EmployeeModel>().Result;
                 return View(resultLogin);
             }
             catch (Exception)
             {
-                log.Error("Cannot connect to admin.");
+                log.Error("Cannot connect to admin profile.");
                 return View("Login");
             }
             
@@ -42,13 +44,26 @@ namespace UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Index(EmployeeModel emUpdate)
         {
+            log.Info("Prepare to update admin profile.");
             try
             {
+                if(string.IsNullOrEmpty(emUpdate.FirstName))
+                {
+                    ModelState.AddModelError("","First name is unvalid.");
+                    return View();
+                }    
+                if(string.IsNullOrEmpty(emUpdate.LastName))
+                {
+                    ModelState.AddModelError("","Last name is unvalid.");
+                    return View();
+                }    
                 if (ModelState.IsValid)
                 {
                     HttpResponseMessage response = serviceObj.PutResponse(url + "UpdateEmployee", emUpdate);
                     response.EnsureSuccessStatusCode();
+                    log.Info("Get result update admin profile");
                     bool resultUpdate = response.Content.ReadAsAsync<bool>().Result;
+                    
                     if (resultUpdate)
                         ViewBag.Result = "Thành công";
                     else
@@ -56,6 +71,7 @@ namespace UI.Areas.Admin.Controllers
                 }
                 else
                     ViewBag.Result = "Thiếu thông tin";
+                log.Info("Result update admin profile: " + ViewBag.Result);
                 return View();
             }
             catch (Exception)
@@ -118,11 +134,13 @@ namespace UI.Areas.Admin.Controllers
         {
             try
             {
+                log.Info("Prepare to login admin");
                 if (ModelState.IsValid)
                 {
                     HttpResponseMessage response = serviceObj.GetResponse(url + "GetLoginResultByUsernamePassword?user=" + model.UserName + "&pass=" + model.Password);
                     response.EnsureSuccessStatusCode();
                     int resultLogin = response.Content.ReadAsAsync<int>().Result;
+                    log.Info("Get result login admin.");
                     switch (resultLogin)
                     {
                         case 1:
@@ -130,7 +148,7 @@ namespace UI.Areas.Admin.Controllers
                                 HttpResponseMessage responseUser = serviceObj.GetResponse(url + "GetEmployeeByUsername?user=" + model.UserName);
                                 responseUser.EnsureSuccessStatusCode();
                                 EmployeeModel employLogin = responseUser.Content.ReadAsAsync<EmployeeModel>().Result;
-
+                                log.Info("Save information admin on cookies.");
                                 var adSession = new LoginModel();
                                 adSession.UserName = employLogin.EmployName;
                                 adSession.Password = employLogin.Pass;
@@ -141,6 +159,7 @@ namespace UI.Areas.Admin.Controllers
                                 responsePermision.EnsureSuccessStatusCode();
                                 List<int> listPermision = responsePermision.Content.ReadAsAsync<List<int>>().Result;
                                 Session.Add(Constants.SESSION_CREDENTIALS, listPermision);
+                                log.Info("Get list permision of admin.");
 
                                 //Xử lý remember me
                                 Session.Add(Constants.ADMIN_SESSION, adSession);
@@ -161,21 +180,27 @@ namespace UI.Areas.Admin.Controllers
                             }
                         case 0:
                             ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                            log.Info("Tài khoản không tồn tại.");
                             break;
                         case -1:
                             ModelState.AddModelError("", "Tài khoản đang bị khoá.");
+                            log.Info("Tài khoản đang bị khoá.");
                             break;
                         case -2:
                             ModelState.AddModelError("", "Mật khẩu không đúng.");
+                            log.Info("Mật khẩu không đúng.");
                             break;
                         case -3:
                             ModelState.AddModelError("", "Đăng nhập sai quá 3 lần. Tài khoản bạn đã bị khóa.");
+                            log.Info("Đăng nhập sai quá 3 lần. Tài khoản bạn đã bị khóa.");
                             break;
                         default:
                             ModelState.AddModelError("", "Đăng nhập thất bại.");
+                            log.Info("Đăng nhập thất bại.");
                             break;
                     }
                 }
+                log.Info("Response result to admin");
                 return this.View();
             }
             catch (Exception)

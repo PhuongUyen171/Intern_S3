@@ -34,7 +34,7 @@ namespace UI.Controllers
             if (list.Count!=0)
             {
                 //Tên danh mục
-                HttpResponseMessage responseCategory = serviceObj.GetResponse(url + "api/Category_API/GetCategoryByID/" + list.First().CategoryID);
+                HttpResponseMessage responseCategory = serviceObj.GetResponse(url + "api/Category_API/GetCategoryByID/" + list.First().CateID);
                 CategoryModel cate = responseCategory.Content.ReadAsAsync<CategoryModel>().Result;
                 if (cate != null)
                 {

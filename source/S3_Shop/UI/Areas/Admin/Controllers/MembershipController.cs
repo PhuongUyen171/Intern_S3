@@ -17,6 +17,7 @@ namespace UI.Areas.Admin.Controllers
             serviceObj = new ServiceRepository();
             url = "https://localhost:44379/api/Membership_API/";
         }
+
         [HasPermision(RoleID = 3)]
         public ActionResult Index()
         {

@@ -19,8 +19,9 @@ namespace Model.Common
             {
                 return false;
             }
+            var group=session.GroupID;
             List<int> privilegeLevels = this.GetCredentialByLoggedInUser(session.UserName); // Call another method to get rights of the user from DB
-            if (privilegeLevels.Contains(this.RoleID) || session.GroupID == null)
+            if (privilegeLevels == null||privilegeLevels.Contains(this.RoleID) || group == null )
             {
                 return false;
             }

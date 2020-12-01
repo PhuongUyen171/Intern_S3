@@ -162,6 +162,7 @@
     <Content Include="Content\Image\but4.jpg" />
     <Content Include="Content\Image\cat.jpg" />
     <Content Include="Content\Image\chinh_sach.png" />
+    <Content Include="Content\Image\ComingSoon.jpg" />
     <Content Include="Content\Image\gau1.jpg" />
     <Content Include="Content\Image\gau2.jpg" />
     <Content Include="Content\Image\gau3.jpg" />
@@ -280,6 +281,11 @@
     <Content Include="Areas\Admin\Views\Category\EditCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Category\DetailCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Category\CreateCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupAdmin\DetailGroupAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupAdmin\CreateGroupAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupAdmin\EditGroupAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\404.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ComingSoon.cshtml" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
