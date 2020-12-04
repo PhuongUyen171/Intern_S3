@@ -2,12 +2,22 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/cssMain.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/c37e58ae3b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 
 <body>
+    <!--Header 1-->
     <div class="header">
         <ul>
             <li><a href="@Url.Action("TuyenDung","Home")">TUYỂN DỤNG</a></li>
@@ -15,32 +25,33 @@
             <li><a href="@Url.Action("HeThong","Home")">HỆ THỐNG CỬA HÀNG</a></li>
         </ul>
     </div>
-
+    <!--Header 2-->
     <div class="container-fluid">
         <div class="row header2">
-            <div class="col-lg-1 col-sm-1"></div>
-            <div class="col-lg-2 col-sm-3">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2 col-sm-12">
                 <a href="@Url.Action("Index","Home")">
-                    <img src="../../Content/Image/store_1580801513_542.png" height="50" width="100" style="margin-top:10px" />
+                    <img src="../../Content/Image/store_1580801513_542.png" height="50" width="100" style="margin-top:10px;height:50px;width: 100px;" />
                 </a>
             </div>
-            <div class="col-lg-5 col-sm-5">
+            <div class="col-lg-5 col-sm-12">
                 @Html.Action("SearchPartial", "Home")
             </div>
-            <div class="col-lg-4" style="padding-top:35px; padding-right:50px;">
+            <div class="col-lg-4 col-sm-12" style="padding-top:35px; padding-right:50px;">
                 @Html.Action("UserPartial", "User")
             </div>
         </div>
     </div>
     @Html.Action("CategoryPartial", "Home")
+    <!--Body-->
     <div class="row">
         <div class="col-lg-1"></div>
         <div class="col-lg-10" style="min-height:500px;">
-
-        @RenderBody()
+            @RenderBody()
         </div>
         <div class="col-lg-1"></div>
     </div>
+    <!--Footer-->
     <div class="footer">
         <div class="row" style="padding-top:10px">
             <div class="col-lg-1"></div>
@@ -75,7 +86,7 @@
             </div>
             <div class="col-lg-2">
                 <a href="~/Admin/Login/Login">
-                    <img src="../../Content/Image/store_1580801513_542.png" width="100%" />
+                    <img src="../../Content/Image/store_1580801513_542.png" style="height:80px;width:120px;" />
                 </a>
                 <p>Hãy kết nối với chúng mình.</p>
             </div>

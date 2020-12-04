@@ -27,7 +27,7 @@
                 @using (Html.BeginForm("UpdateItem", "Cart", new { productID = item.Product.ProductID }))
                 {
                     <td>
-                        <form><input type="number" min="1" name="txtSl" id="soLuong" value="@item.Quantity" style="width:70px;" /><input type="submit" value="+" /></form>
+                        <form><input type="number" min="1" max="100" name="txtSl" id="soLuong" value="@item.Quantity" style="width:30px;" /><input type="submit" value="+" /></form>
                     </td>
                     <td>@String.Format("{0:0,0}", item.Product.Price) VNĐ</td>
                     <td>@String.Format("{0:0,0}", item.Product.Price * item.Quantity) VNĐ</td>

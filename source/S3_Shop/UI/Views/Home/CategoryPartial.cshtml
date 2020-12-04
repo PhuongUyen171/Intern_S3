@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Model.CategoryModel>
 <link href="../../Content/cssMain.css" rel="stylesheet" />
-<div class="header">
+@*<div class="header">
     <ul>
         @foreach (var item in Model)
         {
@@ -11,5 +11,39 @@
             </li>
         }
     </ul>
-</div>
+</div>*@
+<nav class="navbar navbar-expand-lg navbar-dark header">
+    @*<a class="navbar-brand" href="#">Brand-Logo</a>*@
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#my-nav-bar" aria-controls="my-nav-bar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="my-nav-bar" style="">
+        <ul class="navbar-nav">
+            @foreach (var item in Model)
+            {
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("GetProductsByCateID", "Product", new {id=item.CateID })">
+                        @item.CateName
+                    </a>
+                </li>
+            }
+            <!--Kích hoạt phần tử-->
+            <!--<li class="nav-item active">
+                <a class="nav-link" href="#">Trang chủ</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Học HTML</a>
+            </li>
+
+            <li class="nav-item">-->
+                <!--Disenable phần tử-->
+                <!--<a class="nav-link disabled" href="#">Gửi bài</a>
+            </li>-->
+        </ul>
+
+
+
+    </div>
+</nav>
 

@@ -3,6 +3,18 @@
     ViewBag.Title = "Tin tức";
     Layout = "~/Views/Shared/_LayoutIntroduce.cshtml";
 }
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+
 <link href="~/Content/cssMain.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <div class="heading" align="center" style="padding-bottom:20px;">
@@ -18,23 +30,24 @@
 </div>
 @foreach (var item in Model)
 {
-<div class="row">
-    <div class="col-lg-4">
-        <img src="~/Content/Image/@item.Images" />
+    <div class="row" style="padding-bottom:20px;">
+        <div class="col-lg-4 col-sm-4">
+            <img src="~/Content/Image/@item.Images" />
+        </div>
+        <div class="col-lg-8 col-sm-8">
+            <a href="@Url.Action("GetDetailNews","Home", new { id = item.NewsID})" class="titleNews">@item.Title</a>
+            <p>@Truncate(item.Descrip, 150)</p>
+        </div>
     </div>
-    <div class="col-lg-8">
-        <a href="@Url.Action("GetDetailNews","Home", new { id = item.NewsID})" class="titleNews">@item.Title</a>
-        <p>@item.Descrip</p>
-    </div>
-</div>
 }
 <style>
-    .titleNews{
-        font-size:20px;
-        color:black;
+    .titleNews {
+        font-size: 20px;
+        color: black;
     }
+
         .titleNews:hover {
             color: #ffb0bd;
-            text-decoration:none;
+            text-decoration: none;
         }
 </style>

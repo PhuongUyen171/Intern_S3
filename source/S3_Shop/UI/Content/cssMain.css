@@ -4,8 +4,7 @@
 body {
     font-size: 16px;
 }
-
-
+/*header 1*/
 .header {
     background-color: #ffb0bd;
     width: 100%;
@@ -18,7 +17,6 @@ body {
     padding-right: 40px;
     font-size:16px;
 }
-
     .header ul li {
         float: right;
         list-style: none;
@@ -29,20 +27,19 @@ body {
         display: inline-block;
         font-weight: 700;
     }
-
         .header ul li a {
             color: #8a4762;
             text-decoration: none;
             font-weight: 700;
         }
 
+/*Footer*/
 .footer {
     background-color: #ffb0bd;
     width: 100%;
     color: white;
     font-size:16px;
 }
-
 .footerEnd {
     background-color: #ffb0bd;
     height: 60px;
@@ -53,6 +50,7 @@ body {
     font-size:16px;
 }
 
+/*Header 2*/
 .header2 {
     color: #8a4762;
     height: 100px;
@@ -60,6 +58,7 @@ body {
     font-size:16px;
 }
 
+/*Product*/
 .tieuDe {
     font-size: 30px;
     font-weight: 700;
@@ -69,34 +68,31 @@ body {
     margin-top: 100px;
     color: #000;
 }
-
 .sanPham {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 15px;
 }
-
 .tenSp {
     margin-top: 12px;
     font-size: 18px;
     color: #333;
     padding-top: 10px;
 }
-
     .tenSp:hover {
         color: #ffb0bd;
     }
-
 .gia {
     font-size: 17px;
     font-weight: 700;
     color: #000;
 }
-
+/*Search box*/
 .form-tim {
     border: 1px solid #ffb0bd;
     border-radius: 8px;
 }
+
 
 .heading {
     color: #000;
@@ -106,15 +102,12 @@ body {
     margin-top: 30px;
     margin-bottom: 30px;
 }
-
     .heading ul {
         list-style: none;
     }
-
         .heading ul li {
             float: left;
         }
-
             .heading ul li a {
                 color: #000;
                 display: inline-block;
@@ -122,7 +115,6 @@ body {
                 padding: 0 15px;
                 margin-bottom: 5px;
             }
-
                 .heading ul li a.active {
                     color: #ffb0bd;
                 }

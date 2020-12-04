@@ -221,6 +221,7 @@
     <Content Include="Content\Image\men3.jpg" />
     <Content Include="Content\Image\men4.jpg" />
     <Content Include="Content\Image\muahang.jpg" />
+    <Content Include="Content\Image\Product Not Found.png" />
     <Content Include="Content\Image\sb_1581309958_255.jpg" />
     <Content Include="Content\Image\sb_1582684376_29.png" />
     <Content Include="Content\Image\sb_1582981528_424.jpg" />
@@ -380,6 +381,7 @@
     <Content Include="Views\Home\NewsPartial.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Cart\Order.cshtml" />
+    <Content Include="Views\Shared\ProductNotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

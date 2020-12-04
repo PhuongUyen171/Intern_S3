@@ -42,7 +42,7 @@ namespace UI.Controllers
                     return View(list);
                 }
             }
-            return View("~/Views/Shared/404.cshtml");
+            return View("~/Views/Shared/ProductNotFound.cshtml");
         }
         [HttpPost]
         public ActionResult SearchProducts(FormCollection c)
